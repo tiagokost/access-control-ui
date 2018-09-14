@@ -90,6 +90,14 @@ class App extends Component {
       console.log(data);
   }
 
+  handleMenu = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  }  
+
+  handleClose = () => {
+    this.setState({ anchorEl: null });
+  }
+
   render() {
     
     const { classes } = this.props;
@@ -104,9 +112,9 @@ class App extends Component {
               title="Devscape - Access Control"
           >
            <Toolbar>
-            <IconButton color="inherit" aria-label="Menu">
-              <MenuIcon />
-            </IconButton>
+            {/* <IconButton color="inherit" aria-label="Menu">
+              <MenuIcon /> 
+            </IconButton>*/}
             <Typography variant="title" color="inherit" >
               Access Control
             </Typography>
@@ -133,8 +141,8 @@ class App extends Component {
                   open={open}
                   onClose={this.handleClose}
                 >
-                  <MenuItem >Profile</MenuItem>
-                  <MenuItem >My account</MenuItem>
+                  <MenuItem onClick={this.handleClose}>Sig In</MenuItem>
+                  <MenuItem onClick={this.handleClose}>Sig Up</MenuItem>
                 </Menu>
               </div>
           </Toolbar>
