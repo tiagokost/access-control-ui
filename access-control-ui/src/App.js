@@ -1,22 +1,41 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom'; 
 import './App.css';
 import axios from 'axios';
 import AppBar from '@material-ui/core/AppBar';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import Drawer from '@material-ui/core/Drawer';
-import {List,ListItem} from '@material-ui/core/List';
-import {blue500,pink500} from '@material-ui/core/styles';
+import purple from '@material-ui/core/colors/purple';
+import red from '@material-ui/core/colors/red';
 import getMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import MenuIcon from '@material-ui/icons/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+
+const styles = {
+  root: {
+    flexGrow: 1,
+  },
+  grow: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20,
+  },
+};
 
 const muiTheme = getMuiTheme({
   palette:{
-      primary1Color:blue500,
-      accent1Color: pink500
+      primary: purple,
+      secondary: red
   }
+
 })
 
 const contentStyle = {
@@ -25,11 +44,13 @@ const contentStyle = {
 
 const textFieldStyle = {
   display: 'block',
-  width:'100%'
+  width:'100%',
+  marginTop: '5%'
 };
 
 const buttonStyle = {
-  marginTop:'20px'
+  marginTop:'20px',
+  marginTop: '5%'
 }
 
 class App extends Component {
@@ -70,17 +91,53 @@ class App extends Component {
   }
 
   render() {
+    
+    const { classes } = this.props;
+    const { auth, anchorEl } = this.state;
+    const open = Boolean(anchorEl);
+
     return (
       <MuiThemeProvider theme={muiTheme}>
-          
         <div>
           <AppBar 
-              title="My App reactJs"
-              //onLeftIconButtonClick={()=> this.togglerDraw()}
+              position="static"
+              title="Devscape - Access Control"
           >
-            <Typography variant="title" color="inherit">
-              Title
+           <Toolbar>
+            <IconButton color="inherit" aria-label="Menu">
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="title" color="inherit" >
+              Access Control
             </Typography>
+              <div>
+                <IconButton
+                  aria-owns={open ? 'menu-appbar' : null}
+                  aria-haspopup="true"
+                  onClick={this.handleMenu}
+                  color="inherit"
+                >
+                <AccountCircle />
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  open={open}
+                  onClose={this.handleClose}
+                >
+                  <MenuItem >Profile</MenuItem>
+                  <MenuItem >My account</MenuItem>
+                </Menu>
+              </div>
+          </Toolbar>
 
           </AppBar>
           <Drawer 
@@ -92,22 +149,23 @@ class App extends Component {
           <div style={contentStyle}>
               <form onSubmit={(e)=>this.sendForm(e)}>
                   <TextField 
-                      floatinglabeltext="E-mail" 
+                      placeholder="E-mail" 
                       type="email"
                       id="email"
+                      fullWidth={true}
                       style={textFieldStyle}></TextField>
                   <TextField 
-                      floatingLabelText="Senha"
+                      placeholder="Senha"
                       type="password"
                       id="password"
+                      fullWidth={true}
                       style={textFieldStyle}></TextField>
                   <Button 
                       type="submit"
                       style={buttonStyle}
                       fullWidth={true}
                       label="Login"
-                      secondary={true}
-                  ></Button>
+                  >Login</Button>
               </form>
           </div>
         </div>
