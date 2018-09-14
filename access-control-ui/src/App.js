@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
-import AppBar from '@material-ui/core/AppBar';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import Drawer from '@material-ui/core/Drawer';
 import purple from '@material-ui/core/colors/purple';
@@ -9,13 +8,8 @@ import red from '@material-ui/core/colors/red';
 import getMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import MenuIcon from '@material-ui/icons/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import AccountCircle from '@material-ui/icons/AccountCircle';
+import DAppBar from './componets/DAppBar';
+
 
 const styles = {
   root: {
@@ -90,14 +84,6 @@ class App extends Component {
       console.log(data);
   }
 
-  handleMenu = event => {
-    this.setState({ anchorEl: event.currentTarget });
-  }  
-
-  handleClose = () => {
-    this.setState({ anchorEl: null });
-  }
-
   render() {
     
     const { classes } = this.props;
@@ -107,47 +93,7 @@ class App extends Component {
     return (
       <MuiThemeProvider theme={muiTheme}>
         <div>
-          <AppBar 
-              position="static"
-              title="Devscape - Access Control"
-          >
-           <Toolbar>
-            {/* <IconButton color="inherit" aria-label="Menu">
-              <MenuIcon /> 
-            </IconButton>*/}
-            <Typography variant="title" color="inherit" >
-              Access Control
-            </Typography>
-              <div>
-                <IconButton
-                  aria-owns={open ? 'menu-appbar' : null}
-                  aria-haspopup="true"
-                  onClick={this.handleMenu}
-                  color="inherit"
-                >
-                <AccountCircle />
-                </IconButton>
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  open={open}
-                  onClose={this.handleClose}
-                >
-                  <MenuItem onClick={this.handleClose}>Sig In</MenuItem>
-                  <MenuItem onClick={this.handleClose}>Sig Up</MenuItem>
-                </Menu>
-              </div>
-          </Toolbar>
-
-          </AppBar>
+          <DAppBar />
           <Drawer 
               open={this.state.drawerOpened}  
               docked={false}
