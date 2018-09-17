@@ -57,7 +57,6 @@ export default class App extends Component {
   constructor(){
     super();
     this.state = {
-      post: {},
       drawerOpened:false
     };
   }
