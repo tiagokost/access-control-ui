@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import './App.css';
-import axios from 'axios';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
-import Drawer from '@material-ui/core/Drawer';
 import purple from '@material-ui/core/colors/purple';
 import red from '@material-ui/core/colors/red';
 import getMuiTheme from '@material-ui/core/styles/createMuiTheme';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
 import DAppBar from './componets/DAppBar';
-
+import Login from './forms/account/Login';
+import { Switch,Route } from 'react-router-dom';
+import DBottom from './componets/DBottom';
+import SignUp from './forms/account/SignUp';
+import PasswordReset from './forms/account/PasswordReset';
+import _404 from './forms/account/_404';
 
 const styles = {
   root: {
@@ -24,6 +25,25 @@ const styles = {
   },
 };
 
+var footerStyles = {
+  backgroundColor: "#F8F8F8",
+  borderTop: "1px solid #E7E7E7",
+  textAlign: "center",
+  padding: "20px",
+  position: "fixed",
+  left: "0",
+  bottom: "0",
+  height: "50px",
+  width: "100%",
+}
+
+var phantom = {
+  display: 'block',
+  padding: '20px',
+  height: '60px',
+  width: '100%'
+}
+
 const muiTheme = getMuiTheme({
   palette:{
       primary: purple,
@@ -32,22 +52,8 @@ const muiTheme = getMuiTheme({
 
 })
 
-const contentStyle = {
-  padding: '20px'
-};
-
-const textFieldStyle = {
-  display: 'block',
-  width:'100%',
-  marginTop: '5%'
-};
-
-const buttonStyle = {
-  marginTop:'20px',
-  marginTop: '5%'
-}
-
-class App extends Component {
+export default class App extends Component {
+  
   constructor(){
     super();
     this.state = {
@@ -56,77 +62,37 @@ class App extends Component {
     };
   }
 
-  componentDidMount(){
-    axios.get('https://jsonplaceholder.typicode.com/users')
-         .then(res=>{
-            this.setState({
-              post: res.data
-            })
-            console.log(res);
-         })
-         .catch(res=>{
-           console.log(res);
-
-         });
-  }
-  togglerDraw(){
-    this.setState({
-        drawerOpened: !this.state.drawerOpened
-    });
-  }
-  sendForm(e){
-      e.preventDefault();
-      var data={
-          email: document.getElementById('email').value,
-          password: document.getElementById('password').value
-      };
-
-      console.log(data);
-  }
-
   render() {
     
-    const { classes } = this.props;
-    const { auth, anchorEl } = this.state;
+    const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
 
     return (
       <MuiThemeProvider theme={muiTheme}>
         <div>
-          <DAppBar />
-          <Drawer 
-              open={this.state.drawerOpened}  
-              docked={false}
-              onRequestChange={()=>this.togglerDraw()}>
+          <header>
+            <DAppBar/>
+          </header>
+          
+          <main>
+            <Switch>
+              <Route path="/login" component={Login}/>
+              <Route path="/sigup" component={SignUp}/>
+              <Route path="/password-reset" component={PasswordReset}/>
+              <Route component={_404}/>
 
-          </Drawer>
-          <div style={contentStyle}>
-              <form onSubmit={(e)=>this.sendForm(e)}>
-                  <TextField 
-                      placeholder="E-mail" 
-                      type="email"
-                      id="email"
-                      fullWidth={true}
-                      style={textFieldStyle}></TextField>
-                  <TextField 
-                      placeholder="Senha"
-                      type="password"
-                      id="password"
-                      fullWidth={true}
-                      style={textFieldStyle}></TextField>
-                  <Button 
-                      type="submit"
-                      style={buttonStyle}
-                      fullWidth={true}
-                      label="Login"
-                  >Login</Button>
-              </form>
-          </div>
+            </Switch>
+          </main>
+
+          <footer>
+            <div style={phantom} />
+            <div style={footerStyles}>
+                <DBottom/>   
+            </div>
+          </footer>
         </div>
           
-  </MuiThemeProvider>
+      </MuiThemeProvider>
     );
   }
 }
-
-export default App;
