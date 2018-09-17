@@ -1,14 +1,15 @@
 import React,{Component} from 'react';
 import {TextField,Button} from '@material-ui/core';
 import axios from 'axios';
+import Dialog from './../../components/DDialog';
 
 const contentStyle = {
-    padding: '20px'
+    padding: '20px',
+    maxWidth: '800px'
 }
 
 const textFieldStyle = {
     display: 'block',
-    width:'100%',
     marginTop: '5%'
 }
   
@@ -18,11 +19,15 @@ const buttonStyle = {
 }
 
 
+
+
 export default class SignUp extends Component {
+   
     constructor(){
         super();
         
         this.state = {
+            openDialog: true,
             userName: '',
             password: '',
             repeatePassword: '',
@@ -54,9 +59,11 @@ export default class SignUp extends Component {
         },config)
         .then(res=>{
             this.setState({
-            post: res.data
+            post: res.data,
+            openDialog: true
             })
             console.log('then: '+res.json());
+    
         })
         .catch(res=>{
             console.log('erro: '+res);
@@ -69,13 +76,13 @@ export default class SignUp extends Component {
             <div style={contentStyle}>
                 <form onSubmit={(e)=>this.sendForm(e)}>
                     <TextField 
+                        required={true}
                         onChange={this.onChange}
                         value={this.state.userName}
                         placeholder="User Name (E-mail)" 
                         type="text"
                         id="userName"
                         fullWidth={true}
-                        maxLength="2"
                         style={textFieldStyle}></TextField>
                     <TextField 
                         value={this.state.firstName}
@@ -94,6 +101,7 @@ export default class SignUp extends Component {
                         fullWidth={true}
                         style={textFieldStyle}></TextField>
                     <TextField 
+                        required={true}
                         value={this.state.password}
                         onChange={this.onChange}
                         placeholder="Password"
@@ -101,7 +109,8 @@ export default class SignUp extends Component {
                         id="password"
                         fullWidth={true}
                         style={textFieldStyle}></TextField>
-                    <TextField 
+                    <TextField
+                        required={true} 
                         value={this.state.repeatePassword}
                         onChange={this.onChange}
                         placeholder="Password repeat"
@@ -117,7 +126,11 @@ export default class SignUp extends Component {
                         label="Submit"
                     >create account</Button>
                 </form>
+                <Dialog
+                    open={this.state.openDialog} 
+                    fullScreen={false}/>
           </div>
+   
         );
     }
     
