@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-
 
 const contentStyle = {
     padding: '20px'
@@ -19,6 +17,7 @@ const buttonStyle = {
     marginTop: '5%'
 }
 
+
 class Login extends Component{
     sendForm(e){
         e.preventDefault();
@@ -30,18 +29,18 @@ class Login extends Component{
         console.log(data);
     }
     
-    componentDidMount(){
-        axios.get('https://jsonplaceholder.typicode.com/users')
-        .then(res=>{
-            this.setState({
-            post: res.data
-            })
-            console.log(res);
-        })
-        .catch(res=>{
-            console.log(res);
-        });
-    }
+    // componentDidMount(){
+    //     axios.get('https://jsonplaceholder.typicode.com/users')
+    //     .then(res=>{
+    //         this.setState({
+    //         post: res.data
+    //         })
+    //         console.log(res);
+    //     })
+    //     .catch(res=>{
+    //         console.log(res);
+    //     });
+    // }
   
     render(){
         return (
