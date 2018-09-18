@@ -9,10 +9,14 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 
 class DDialog extends React.Component {
-  state = {
-    open: false,
-  };
 
+  constructor(props){
+    super(props);
+    this.state = {
+      open: this.props.open,
+      title: this.props.title
+    }
+  }
   handleClickOpen = () => {
     this.setState({ open: true });
   };
@@ -21,31 +25,33 @@ class DDialog extends React.Component {
     this.setState({ open: false });
   };
 
+  componentWillReceiveProps(props) {
+    this.setState({open: props.open});
+  }
+
   render() {
     const { fullScreen } = this.props;
 
     return (
       <div>
-        {/* <Button onClick={this.handleClickOpen}>Open responsive dialog</Button> */}
         <Dialog
           fullScreen={fullScreen}
           open={this.state.open}
           onClose={this.handleClose}
           aria-labelledby="responsive-dialog-title"
         >
-          <DialogTitle id="responsive-dialog-title">{"Use Google's location service?"}</DialogTitle>
+          <DialogTitle id="responsive-dialog-title">{this.props.title}</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Let Google help apps determine location. This means sending anonymous location data to
-              Google, even when no apps are running.
+              {this.props.message}
             </DialogContentText>
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">
-              Disagree
+              cancel
             </Button>
             <Button onClick={this.handleClose} color="primary" autoFocus>
-              Agree
+              ok
             </Button>
           </DialogActions>
         </Dialog>
@@ -55,6 +61,8 @@ class DDialog extends React.Component {
 }
 
 DDialog.propTypes = {
+  title: PropTypes.string,
+  message: PropTypes.string.isRequired,
   fullScreen: PropTypes.bool.isRequired,
   open:PropTypes.bool.isRequired
 };

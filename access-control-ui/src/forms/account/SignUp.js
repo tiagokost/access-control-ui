@@ -18,22 +18,24 @@ const buttonStyle = {
     marginTop: '5%'
 }
 
-
-
-
 export default class SignUp extends Component {
    
-    constructor(){
-        super();
-        
+    clearForm(){
         this.state = {
-            openDialog: true,
+            title: 'Dialog',
+            message: '',
+            openDialog: false,
             userName: '',
             password: '',
             repeatePassword: '',
             firstName: '',
             lastName: ''
         }
+    }
+    constructor(){
+        super();
+
+        this.clearForm();
 
         this.onChange = (event)=>{
             const state = Object.assign({},this.state);
@@ -46,29 +48,38 @@ export default class SignUp extends Component {
     sendForm(e){
         e.preventDefault();
 
-        var config = {
-            headers: {'Content-Type': 'application/json'}
-          };
 
-        axios.post('http://localhost:8080/account', {
+          //'Authorization':'Basic ZGV2c2NhcGU6MTIzNDU2'
+        axios.post('http://localhost:8080/account',
+        {
             userName: this.state.userName,
             password: this.state.password,
             repeatePassword: this.state.repeatePassword,
             firstName: this.state.firstName,
             lastName: this.state.lastName
-        },config)
+        },
+            {
+                username: 'devscape',
+                password:'123456'
+            }
+        )
         .then(res=>{
-            this.setState({
-            post: res.data,
-            openDialog: true
-            })
+            console.log(res.json());
+
+
+            this.clearForm();
+
             console.log('then: '+res.json());
-    
         })
         .catch(res=>{
+            this.setState({
+                    title: 'Error',
+                    message: res.message,
+                    openDialog: true
+                }
+            );
             console.log('erro: '+res);
         });
-  
     }
 
     render(){
@@ -127,7 +138,9 @@ export default class SignUp extends Component {
                     >create account</Button>
                 </form>
                 <Dialog
+                    message={this.state.message}
                     open={this.state.openDialog} 
+                    title={this.state.title}
                     fullScreen={false}/>
           </div>
    
