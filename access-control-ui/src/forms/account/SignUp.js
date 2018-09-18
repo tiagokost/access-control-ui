@@ -49,37 +49,53 @@ export default class SignUp extends Component {
         e.preventDefault();
 
 
-          //'Authorization':'Basic ZGV2c2NhcGU6MTIzNDU2'
-        axios.post('http://localhost:8080/account',
-        {
-            userName: this.state.userName,
-            password: this.state.password,
-            repeatePassword: this.state.repeatePassword,
-            firstName: this.state.firstName,
-            lastName: this.state.lastName
-        },
-            {
-                username: 'devscape',
-                password:'123456'
+        const AXIOS = axios.create({
+            baseURL: 'http://192.168.15.61:8080',
+            headers:{
+                'Access-Control-Allow-Origin':'*',
+                'Access-Control-Allow-Headers':'origin, content-type, accept, authorization',
+                'Access-Control-Allow-Credentials':'true',
+                'Access-Control-Allow-Methods':'POST',
+                'Authorization':'Basic ZGV2c2NhcGU6MTIzNDU2',
+                'Content-Type': 'application/json'
             }
-        )
-        .then(res=>{
-            console.log(res.json());
+          });
 
 
-            this.clearForm();
+        //   AXIOS.get('role')
+        //   .then(res=>{
+        //       console.log('then'+res.json());
+        //   })
+        //   .catch(res=>{
+        //       console.log(res.json());
+        //   });
 
-            console.log('then: '+res.json());
-        })
-        .catch(res=>{
-            this.setState({
-                    title: 'Error',
-                    message: res.message,
-                    openDialog: true
-                }
-            );
-            console.log('erro: '+res);
-        });
+        // AXIOS.post('account',
+        // {
+        //     userName: this.state.userName,
+        //     password: this.state.password,
+        //     repeatePassword: this.state.repeatePassword,
+        //     // firstName: this.state.firstName,
+        //     // lastName: this.state.lastName
+        // }
+        // )
+        // .then(res=>{
+        //     console.log(res.json());
+
+
+        //     this.clearForm();
+
+        //     console.log('then: '+res.json());
+        // })
+        // .catch(res=>{
+        //     this.setState({
+        //             title: 'Error',
+        //             message: res.message,
+        //             openDialog: true
+        //         }
+        //     );
+        //     console.log('erro: '+res);
+        // });
     }
 
     render(){
@@ -95,7 +111,7 @@ export default class SignUp extends Component {
                         id="userName"
                         fullWidth={true}
                         style={textFieldStyle}></TextField>
-                    <TextField 
+                    {/* <TextField 
                         value={this.state.firstName}
                         onChange={this.onChange}
                         placeholder="First Name" 
@@ -110,7 +126,7 @@ export default class SignUp extends Component {
                         type="text"
                         id="lastName"
                         fullWidth={true}
-                        style={textFieldStyle}></TextField>
+                        style={textFieldStyle}></TextField> */}
                     <TextField 
                         required={true}
                         value={this.state.password}
