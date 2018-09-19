@@ -33,6 +33,7 @@ export default class SignUp extends Component {
         }
     }
     constructor(){
+
         super();
 
         this.clearForm();
@@ -43,42 +44,106 @@ export default class SignUp extends Component {
             state[fieldName] = event.target.value;
             this.setState(state);
         }
+    }
+
+    componentDidMount(){
+        axios.post('http://127.0.0.1:8080/application',       
+           {
+                alias:"apLLLp-det",
+                name:"Aplicativo DETANI",
+                description:"Sistema para emissão de multa."
+            }
+        ,{
+           headers:{ 'Origin': 'http://localhost:3000',
+            'Authorization':'Basic ZGV2c2NhcGU6MTIzNDU2',
+            'Content-Type': 'application/json'}
+          }
+          )
+          .then(res=>{
+              console.log('then'+res.data);
+          }
+          )
+          .catch(res=>{
+              console.log(res.message);
+        });
+
+
+        axios.post('http://127.0.0.1:8080/application',       
+            {
+                alias:"apLLLp-det",
+                name:"Aplicativo DETANI",
+                description:"Sistema para emissão de multa."
+            }
+        ,{
+            headers:{ 'Origin': 'http://localhost:3000',
+            'Authorization':'Basic ZGV2c2NhcGU6MTIzNDU2',
+            'Content-Type': 'application/json'}
+            }
+            )
+            .then(res=>{
+                console.log('then'+res.data);
+            }
+            )
+            .catch(res=>{
+                console.log(res.message);
+        });
 
     }
     sendForm(e){
         e.preventDefault();
+        // const axiosRequest = axios.create({
+        //     baseURL: 'http://localhost:8080/',
+        //     headers:{
+        //         'Authorization':'Basic ZGV2c2NhcGU6MTIzNDU2',
+        //         'Content-Type': 'application/json'
+        //     }
+        //   });
 
 
-        const axiosRequest = axios.create({
-            baseURL: 'http://localhost:8080',
-            headers:{
-               'Authorization':'Basic ZGV2c2NhcGU6MTIzNDU2',
-               // 'WWW-Authenticate': 'Basic realm="Realm"'
-               'Content-Type': 'application/json;charset=UTF-8',
-               "Access-Control-Allow-Origin": "*",
-            }
+          axios.get('http://127.0.0.1:3000/application', {
+            'Origin':'http://127.0.0.1:3000',
+            'Authorization':'Basic ZGV2c2NhcGU6MTIzNDU2',
+            'Content-Type': 'application/json'
+          })
+          .then(res=>{
+              console.log('then'+res.json());
+          }
+          )
+          .catch(res=>{
+              console.log(res.json());
           });
 
-        axiosRequest.post('account',
-        {
-            userName: this.state.userName,
-            password: this.state.password,
-            repeatePassword: this.state.repeatePassword
-        }
-        )
-        .then(res=>{
-            console.log(res.data);
-            this.clearForm();
-        })
-        .catch(res=>{
-            this.setState({
-                    title: 'Error',
-                    message: res.message,
-                    openDialog: true
-                }
-            );
-            console.log('erro: '+res);
-        });
+        // axios.post('http://localhost:8080/account',
+        // {
+        //     userName: this.state.userName,
+        //     password: this.state.password,
+        //     repeatePassword: this.state.repeatePassword,
+        //     // firstName: this.state.firstName,
+        //     // lastName: this.state.lastName
+        // },
+        // {
+        //     'Origin':'http://127.0.0.1:3000',
+        //     'Authorization':'Basic ZGV2c2NhcGU6MTIzNDU2',
+        //     'Content-Type': 'application/json'
+        // }
+        // )
+        // .then(res=>{
+        //     console.log(res.json());
+
+
+        //     this.clearForm();
+
+        //     console.log('then: '+res.json());
+        // })
+        // .catch(res=>{
+        //     this.setState({
+        //             title: 'Error',
+        //             message: res.message,
+        //             openDialog: true
+        //         }
+        //     );
+        //     console.log('erro: '+res);
+        // });
     }
 
     render(){
