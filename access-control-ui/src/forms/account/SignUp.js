@@ -49,53 +49,36 @@ export default class SignUp extends Component {
         e.preventDefault();
 
 
-        const AXIOS = axios.create({
-            baseURL: 'http://192.168.15.61:8080',
+        const axiosRequest = axios.create({
+            baseURL: 'http://localhost:8080',
             headers:{
-                'Access-Control-Allow-Origin':'*',
-                'Access-Control-Allow-Headers':'origin, content-type, accept, authorization',
-                'Access-Control-Allow-Credentials':'true',
-                'Access-Control-Allow-Methods':'POST',
-                'Authorization':'Basic ZGV2c2NhcGU6MTIzNDU2',
-                'Content-Type': 'application/json'
+               'Authorization':'Basic ZGV2c2NhcGU6MTIzNDU2',
+               // 'WWW-Authenticate': 'Basic realm="Realm"'
+               'Content-Type': 'application/json;charset=UTF-8',
+               "Access-Control-Allow-Origin": "*",
             }
           });
 
-
-        //   AXIOS.get('role')
-        //   .then(res=>{
-        //       console.log('then'+res.json());
-        //   })
-        //   .catch(res=>{
-        //       console.log(res.json());
-        //   });
-
-        // AXIOS.post('account',
-        // {
-        //     userName: this.state.userName,
-        //     password: this.state.password,
-        //     repeatePassword: this.state.repeatePassword,
-        //     // firstName: this.state.firstName,
-        //     // lastName: this.state.lastName
-        // }
-        // )
-        // .then(res=>{
-        //     console.log(res.json());
-
-
-        //     this.clearForm();
-
-        //     console.log('then: '+res.json());
-        // })
-        // .catch(res=>{
-        //     this.setState({
-        //             title: 'Error',
-        //             message: res.message,
-        //             openDialog: true
-        //         }
-        //     );
-        //     console.log('erro: '+res);
-        // });
+        axiosRequest.post('account',
+        {
+            userName: this.state.userName,
+            password: this.state.password,
+            repeatePassword: this.state.repeatePassword
+        }
+        )
+        .then(res=>{
+            console.log(res.data);
+            this.clearForm();
+        })
+        .catch(res=>{
+            this.setState({
+                    title: 'Error',
+                    message: res.message,
+                    openDialog: true
+                }
+            );
+            console.log('erro: '+res);
+        });
     }
 
     render(){

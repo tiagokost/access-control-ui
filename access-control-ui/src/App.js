@@ -76,7 +76,7 @@ export default class App extends Component {
           <main>
             <Switch>
               <Route path="/login" component={Login}/>
-              <Route path="/sigup" component={SignUp}/>
+              <Route path="/signup" component={SignUp}/>
               <Route path="/password-reset" component={PasswordReset}/>
               <Route component={_404}/>
 

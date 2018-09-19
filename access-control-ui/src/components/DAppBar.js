@@ -25,21 +25,21 @@ const sideList = (
     <div >
     <List>
         <ListItem><Link to="/login">Sign In</Link></ListItem>
-        <ListItem><Link to="/sigup">Sign Up</Link></ListItem>
+        <ListItem><Link to="/signup">Sign Up</Link></ListItem>
         <ListItem><Link to="/password-reset"></Link></ListItem>
     </List>
-    <Divider />
+    {/* <Divider />
     <List>
         <ListItem>Menu 1</ListItem>
         <ListItem>Menu 2</ListItem>
         <ListItem>Menu 3</ListItem>
-    </List>
+    </List> */}
     </div>
 );
 
 const fullList = (
     <div>
-    <List>
+    {/* <List>
         <ListItem>Menu 1</ListItem>
         <ListItem>Menu 2</ListItem>
         <ListItem>Menu 3</ListItem>
@@ -49,7 +49,7 @@ const fullList = (
         <ListItem>Menu 1</ListItem>
         <ListItem>Menu 2</ListItem>
         <ListItem>Menu 3</ListItem>
-    </List>
+    </List> */}
     </div>
 );
 
