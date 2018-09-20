@@ -18,18 +18,16 @@ const buttonStyle = {
     marginTop: '5%'
 }
 
-export default class SignUp extends Component {
+export default class RegisterApplication extends Component {
    
     clearForm(){
         this.state = {
             title: 'Dialog',
             message: '',
             openDialog: false,
-            userName: '',
-            password: '',
-            repeatePassword: '',
-            firstName: '',
-            lastName: ''
+            alias:'',
+            name: '',
+            description:''
         }
     }
     constructor(){
@@ -49,47 +47,15 @@ export default class SignUp extends Component {
     componentDidMount(){
 
 
-        // axios.post('http://127.0.0.1:8080/application',       
-        //     {
-        //         alias:"apLLLp-det",
-        //         name:"Aplicativo DETANI",
-        //         description:"Sistema para emissão de multa."
-        //     },
-        //     {
-        //         headers: {
-   
-        //             'Authorization':'Basic ZGV2c2NhcGU6MTIzNDU2',
-        //             'Content-Type': 'application/json'
-        //     }})
-        //     .then(res=>{
-        //         console.log('then'+res.data);
-        //     }
-        //     )
-        //     .catch(res=>{
-        //         console.log(res.message);
-        // });
-
     }
     sendForm(e){
         e.preventDefault();
-        // const axiosRequest = axios.create({
-        //     baseURL: 'http://localhost:8080/',
-        //     headers:{
-        //         'Authorization':'Basic ZGV2c2NhcGU6MTIzNDU2',
-        //         'Content-Type': 'application/json'
-        //     }npm
-        //   });
 
-
-        
-
-        axios.post('http://localhost:8080/account',
+        axios.post('http://localhost:8080/application',
         {
-            userName: this.state.userName,
-            password: this.state.password,
-            repeatePassword: this.state.repeatePassword,
-            // firstName: this.state.firstName,
-            // lastName: this.state.lastName
+            alias: this.state.alias,
+            name: this.state.name,
+            description: this.state.description
         },
         {
             'Origin':'http://127.0.0.1:3000',
@@ -98,12 +64,10 @@ export default class SignUp extends Component {
         }
         )
         .then(res=>{
-            console.log(res.json());
-
+            console.log(res.data);
 
             this.clearForm();
 
-            console.log('then: '+res.json());
         })
         .catch(res=>{
             this.setState({
@@ -124,43 +88,27 @@ export default class SignUp extends Component {
                         required={true}
                         onChange={this.onChange}
                         value={this.state.userName}
-                        placeholder="User Name (E-mail)" 
+                        placeholder="Name" 
                         type="text"
-                        id="userName"
+                        id="name"
                         fullWidth={true}
                         style={textFieldStyle}></TextField>
-                    {/* <TextField 
-                        value={this.state.firstName}
-                        onChange={this.onChange}
-                        placeholder="First Name" 
-                        type="text"
-                        id="firstName"
-                        fullWidth={true}
-                        style={textFieldStyle}></TextField>
-                    <TextField 
-                        value={this.state.lastName}
-                        onChange={this.onChange}
-                        placeholder="Last Name" 
-                        type="text"
-                        id="lastName"
-                        fullWidth={true}
-                        style={textFieldStyle}></TextField> */}
                     <TextField 
                         required={true}
                         value={this.state.password}
                         onChange={this.onChange}
-                        placeholder="Password"
-                        type="password"
-                        id="password"
+                        placeholder="Alias"
+                        type="text"
+                        id="alias"
                         fullWidth={true}
                         style={textFieldStyle}></TextField>
                     <TextField
                         required={true} 
                         value={this.state.repeatePassword}
                         onChange={this.onChange}
-                        placeholder="Password repeat"
-                        type="password"
-                        id="repeatePassword"
+                        placeholder="Description"
+                        type="text"
+                        id="description"
                         fullWidth={true}
                         style={textFieldStyle}></TextField>
                     
@@ -169,7 +117,7 @@ export default class SignUp extends Component {
                         style={buttonStyle}
                         fullWidth={true}
                         label="Submit"
-                    >create account</Button>
+                    >save</Button>
                 </form>
                 <Dialog
                     message={this.state.message}

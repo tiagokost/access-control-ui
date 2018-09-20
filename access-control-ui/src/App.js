@@ -10,6 +10,7 @@ import { Switch,Route } from 'react-router-dom';
 import DBottom from './components/DBottom';
 import SignUp from './forms/account/SignUp';
 import PasswordReset from './forms/account/PasswordReset';
+import RegisterApplication from './forms/application/RegisterApplication';
 import _404 from './forms/account/_404';
 
 const styles = {
@@ -78,6 +79,7 @@ export default class App extends Component {
               <Route path="/login" component={Login}/>
               <Route path="/signup" component={SignUp}/>
               <Route path="/password-reset" component={PasswordReset}/>
+              <Route path="/new-application" component={RegisterApplication}/>
               <Route component={_404}/>
 
             </Switch>
