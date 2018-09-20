@@ -14,6 +14,7 @@ import RegisterApplication from './forms/application/RegisterApplication';
 import _404 from './forms/account/_404';
 import ListApplication from './forms/application/ListApplication';
 
+
 const styles = {
   root: {
     flexGrow: 1,
@@ -91,12 +92,12 @@ export default class App extends Component {
             </Switch>
           </main>
 
-          <footer>
+         {/* <footer>
             <div style={phantom} />
             <div style={footerStyles}>
                 <DBottom/>   
             </div>
-          </footer>
+          </footer> */}
         </div>
           
       </MuiThemeProvider>

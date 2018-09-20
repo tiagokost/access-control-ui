@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { Table, TableHead,TableBody,TableRow ,TableCell,Paper,TableColumnVisibility} from '@material-ui/core';
-import {lightBlue} from '@material-ui/core/colors';
+import { TableCell, Paper } from '@material-ui/core';
+import {
+    Grid,
+    Table,
+    TableHeaderRow,
+    TableColumnVisibility,
+    Toolbar,
+    ColumnChooser
+} from '@devexpress/dx-react-grid-material-ui';
 
 const styles = theme => ({
     root: {
@@ -19,19 +25,37 @@ const styles = theme => ({
 
 const CustomTableCell = withStyles(theme => ({
     head: {
-      backgroundColor: theme.palette.common.lightBlue
+        backgroundColor: theme.palette.common.lightBlue
     },
     body: {
-      fontSize: 14,
+        fontSize: 14,
     },
-  }))(TableCell);
+}))(TableCell);
+
+
 
 class ListApplication extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+
         this.state = {
-            data: [],
+            data:[],
+            columns: [
+              { name: 'alias', title: 'alias' },
+              { name: 'name', title: 'Name' },
+              { name: 'description', title: 'Description' },
+              { name: 'id', title: '#ID' },
+            ],
+            tableColumnExtensions: [
+              { columnName: 'alias' },
+            ],
+            rows: [],
+            hiddenColumnNames: ['description','id'],
         };
+
+        this.hiddenColumnNamesChange = (hiddenColumnNames) => {
+            this.setState({ hiddenColumnNames });
+          };
     }
 
     componentDidMount() {
@@ -50,7 +74,7 @@ class ListApplication extends Component {
         )
             .then(res => {
                 this.setState({
-                    data: res.data
+                    rows: res.data
                 });
             })
             .catch(res => {
@@ -66,42 +90,78 @@ class ListApplication extends Component {
 
     render() {
         const { classes } = this.props;
-        return (
-            <div clasName={classes.root}>
-                <Grid container spacing={24}>
-                    <Grid item >
-                        <Paper>
-                            <Table>
-                                <TableHead>
-                                    <TableRow>
-                                        <CustomTableCell>#ID</CustomTableCell>
-                                        <CustomTableCell >Name</CustomTableCell>
-                                        <CustomTableCell >Alias</CustomTableCell>
-                                        <CustomTableCell >Description</CustomTableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {
-                                        this.state.data.map(function (row, i) {
-                                            return (
-                                                <TableRow className={classes.row} key={row.id}>
-                                                    <CustomTableCell >{row.id}</CustomTableCell>
-                                                    <CustomTableCell component="th" scope="row">
-                                                        {row.name}
-                                                    </CustomTableCell>
-                                                    <CustomTableCell >{row.alias}</CustomTableCell>
-                                                    <CustomTableCell >{row.description}</CustomTableCell>
-                                                </TableRow>
-                                            )
-                                        })
-                                    }
-                                </TableBody>
-                            </Table>
 
-                        </Paper>
-                    </Grid>
-                </Grid>
-            </div>
+        const { columns, rows, defaultHiddenColumnNames ,tableColumnExtensions,hiddenColumnNames} = this.state;
+        return (
+      
+            <Paper>
+            <Grid
+              rows={rows}
+              columns={columns}
+            >
+              <Table
+                columnExtensions={tableColumnExtensions}
+              />
+              <TableHeaderRow />
+              <TableColumnVisibility
+                hiddenColumnNames={hiddenColumnNames}
+                onHiddenColumnNamesChange={this.hiddenColumnNamesChange}
+              />
+              <Toolbar />
+              <ColumnChooser />
+            </Grid>
+          </Paper>
+
+            // <Paper>
+            //     <Grid
+            //         rows={rows}
+            //         columns={columns}
+            //     >
+            //         <Table />
+            //         <TableHeaderRow />
+            //         <TableColumnVisibility
+            //             defaultHiddenColumnNames={defaultHiddenColumnNames}
+            //         />
+            //         <Toolbar />
+            //         <ColumnChooser />
+            //     </Grid>
+            // </Paper>
+            /*  <div clasName={classes.root}>
+                  <Paper>
+                     <Grid
+                         rows={20}
+                         columns={4}>
+                         <Table>
+                            <TableHeaderRow>
+                                 <TableRow>
+                                     <CustomTableCell>#ID</CustomTableCell>
+                                     <CustomTableCell >Name</CustomTableCell>
+                                     <CustomTableCell >Alias</CustomTableCell>
+                                     <CustomTableCell >Description</CustomTableCell>
+                                 </TableRow>
+                                 <TableColumnVisibility
+                                     defaultHiddenColumnNames={true} />
+                             </TableHeaderRow>
+                             <TableBody>
+                                 {
+                                     this.state.data.map(function (row, i) {
+                                         return (
+                                             <TableRow className={classes.row} key={row.id}>
+                                                 <CustomTableCell >{row.id}</CustomTableCell>
+                                                 <CustomTableCell component="th" scope="row">
+                                                     {row.name}
+                                                 </CustomTableCell>
+                                                 <CustomTableCell >{row.alias}</CustomTableCell>
+                                                 <CustomTableCell >{row.description}</CustomTableCell>
+                                             </TableRow>
+                                         )
+                                     })
+                                 }
+                             </TableBody> 
+                         </Table>
+                     </Grid>
+                 </Paper>
+             </div>*/
         )
     }
 }
