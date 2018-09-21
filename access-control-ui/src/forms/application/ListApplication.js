@@ -94,7 +94,8 @@ class ListApplication extends Component {
         const { columns, rows, defaultHiddenColumnNames ,tableColumnExtensions,hiddenColumnNames} = this.state;
         return (
       
-            <Paper>
+            <Paper
+                >
             <Grid
               rows={rows}
               columns={columns}

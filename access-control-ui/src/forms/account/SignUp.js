@@ -2,21 +2,8 @@ import React,{Component} from 'react';
 import {TextField,Button} from '@material-ui/core';
 import axios from 'axios';
 import Dialog from './../../components/DDialog';
+import {textFieldStyle,contentStyle,buttonStyle} from './../formStyle';
 
-const contentStyle = {
-    padding: '20px',
-    maxWidth: '800px'
-}
-
-const textFieldStyle = {
-    display: 'block',
-    marginTop: '5%'
-}
-  
-const buttonStyle = {
-    marginTop:'20px',
-    marginTop: '5%'
-}
 
 export default class SignUp extends Component {
    
@@ -72,24 +59,12 @@ export default class SignUp extends Component {
     }
     sendForm(e){
         e.preventDefault();
-        // const axiosRequest = axios.create({
-        //     baseURL: 'http://localhost:8080/',
-        //     headers:{
-        //         'Authorization':'Basic ZGV2c2NhcGU6MTIzNDU2',
-        //         'Content-Type': 'application/json'
-        //     }npm
-        //   });
-
-
-        
 
         axios.post('http://localhost:8080/account',
         {
             userName: this.state.userName,
             password: this.state.password,
-            repeatePassword: this.state.repeatePassword,
-            // firstName: this.state.firstName,
-            // lastName: this.state.lastName
+            repeatePassword: this.state.repeatePassword
         },
         {
             'Origin':'http://127.0.0.1:3000',
@@ -129,22 +104,6 @@ export default class SignUp extends Component {
                         id="userName"
                         fullWidth={true}
                         style={textFieldStyle}></TextField>
-                    {/* <TextField 
-                        value={this.state.firstName}
-                        onChange={this.onChange}
-                        placeholder="First Name" 
-                        type="text"
-                        id="firstName"
-                        fullWidth={true}
-                        style={textFieldStyle}></TextField>
-                    <TextField 
-                        value={this.state.lastName}
-                        onChange={this.onChange}
-                        placeholder="Last Name" 
-                        type="text"
-                        id="lastName"
-                        fullWidth={true}
-                        style={textFieldStyle}></TextField> */}
                     <TextField 
                         required={true}
                         value={this.state.password}

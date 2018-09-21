@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import { paperStyle,textFieldStyle, contentStyle, buttonStyle } from './../formStyle';
 
-const contentStyle = {
-    padding: '20px'
-}
+// const contentStyle = {
+//     padding: '20px'
+// }
 
-const textFieldStyle = {
-    display: 'block',
-    width:'100%',
-    marginTop: '5%'
-}
+// const textFieldStyle = {
+//     display: 'block',
+//     width:'100%',
+//     marginTop: '5%'
+// }
   
-const buttonStyle = {
-    marginTop:'20px',
-    marginTop: '5%'
-}
+// const buttonStyle = {
+//     marginTop:'20px',
+//     marginTop: '5%'
+// }
 
 
 class Login extends Component{

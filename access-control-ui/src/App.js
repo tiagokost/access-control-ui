@@ -13,6 +13,7 @@ import PasswordReset from './forms/account/PasswordReset';
 import RegisterApplication from './forms/application/RegisterApplication';
 import _404 from './forms/account/_404';
 import ListApplication from './forms/application/ListApplication';
+import ListAccount from './forms/account/ListAccount';
 
 
 const styles = {
@@ -86,6 +87,7 @@ export default class App extends Component {
               <Route path="/password-reset" component={PasswordReset}/>
               <Route path="/application/new" component={RegisterApplication}/>
               <Route path="/application/all" component={ListApplication}/>
+              <Route path="/account/all" component={ListAccount}/>
 
               <Route component={_404}/>
 

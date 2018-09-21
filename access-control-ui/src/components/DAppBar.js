@@ -118,7 +118,7 @@ class DAppBar extends Component {
                         dense={false}
                     >
                         <SignUpIcon className={classes.icon} />
-                        <Link className={classes.listItem} to="/applications/new">New</Link></ListItem>
+                        <Link className={classes.listItem} to="/application/new">New</Link></ListItem>
                 </List>
                 <Divider />
                 <List
@@ -127,7 +127,16 @@ class DAppBar extends Component {
                     <ListItem
                         button={true}
                         dense={true}
-                        selected={true}>
+                        >
+                        <SignInIcon className={classes.icon} />
+                        <Link
+                            className={classes.listItem} to="/account/all">
+                            Account</Link>
+                    </ListItem>
+                    <ListItem
+                        button={true}
+                        dense={true}
+                        >
                         <SignInIcon className={classes.icon} />
                         <Link
                             className={classes.listItem} to="/login">
