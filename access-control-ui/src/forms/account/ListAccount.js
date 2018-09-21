@@ -60,7 +60,7 @@ class ListAccount extends Component {
 
     componentDidMount() {
 
-        axios.get('http://localhost:8080/account',
+        axios.get('http://localhost:8080/account/inactive',
             {
                 userName: this.state.userName,
                 firstName: this.state.firstName,

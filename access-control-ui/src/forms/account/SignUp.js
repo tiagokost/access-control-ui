@@ -30,33 +30,17 @@ export default class SignUp extends Component {
             const fieldName = event.target.id;
             state[fieldName] = event.target.value;
             this.setState(state);
+            this.setState({
+                openDialog:false
+            });
         }
     }
 
     componentDidMount(){
 
 
-        // axios.post('http://127.0.0.1:8080/application',       
-        //     {
-        //         alias:"apLLLp-det",
-        //         name:"Aplicativo DETANI",
-        //         description:"Sistema para emissão de multa."
-        //     },
-        //     {
-        //         headers: {
-   
-        //             'Authorization':'Basic ZGV2c2NhcGU6MTIzNDU2',
-        //             'Content-Type': 'application/json'
-        //     }})
-        //     .then(res=>{
-        //         console.log('then'+res.data);
-        //     }
-        //     )
-        //     .catch(res=>{
-        //         console.log(res.message);
-        // });
-
     }
+
     sendForm(e){
         e.preventDefault();
 
@@ -73,21 +57,31 @@ export default class SignUp extends Component {
         }
         )
         .then(res=>{
-            console.log(res.json());
-
-
-            this.clearForm();
-
-            console.log('then: '+res.json());
-        })
-        .catch(res=>{
+            
             this.setState({
-                    title: 'Error',
-                    message: res.message,
+                    title: 'Success!',
+                    message: "A conta foi criada, você receberá um código para desbloquea-la.",
+                    openDialog: true
+                    // message: '',
+                    // userName: '',
+                    // password: '',
+                    // repeatePassword: '',
+                    // firstName: '',
+                    // lastName: ''
+                }
+            );
+
+            //console.log('then: '+res);
+        })
+        .catch(ex=>{
+            this.setState({
+                    title: 'Server error',
+                    message: ex.response.data.message,
                     openDialog: true
                 }
             );
-            console.log('erro: '+res);
+            
+            //console.log(JSON.stringify(ex.response));
         });
     }
 
