@@ -11,6 +11,7 @@ import {
     Toolbar,
     ColumnChooser
 } from '@devexpress/dx-react-grid-material-ui';
+import {ApiHostBase} from '../../Api'; 
 
 const styles = theme => ({
     root: {
@@ -60,7 +61,7 @@ class ListApplication extends Component {
 
     componentDidMount() {
 
-        axios.get('http://localhost:8080/application',
+        axios.get(ApiHostBase +'application',
             {
                 alias: this.state.alias,
                 name: this.state.name,

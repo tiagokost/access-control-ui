@@ -3,6 +3,7 @@ import {TextField,Button} from '@material-ui/core';
 import axios from 'axios';
 import Dialog from './../../components/DDialog';
 import {textFieldStyle,contentStyle,buttonStyle} from './../formStyle';
+import {ApiHostBase} from '../../Api'; 
 
 
 export default class SignUp extends Component {
@@ -44,7 +45,7 @@ export default class SignUp extends Component {
     sendForm(e){
         e.preventDefault();
 
-        axios.post('http://localhost:8080/account',
+        axios.post(ApiHostBase + 'account',
         {
             userName: this.state.userName,
             password: this.state.password,

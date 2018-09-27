@@ -4,6 +4,7 @@ import { paperStyle,textFieldStyle, contentStyle, buttonStyle } from './../formS
 import { Paper } from '@material-ui/core';
 
 
+
 export default class PasswordReset extends Component {
     constructor() {
         super();

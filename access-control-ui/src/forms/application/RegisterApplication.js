@@ -4,6 +4,7 @@ import axios from 'axios';
 import Dialog from './../../components/DDialog';
 import { Paper } from '@material-ui/core';
 import { paperStyle,textFieldStyle, contentStyle, buttonStyle } from './../formStyle';
+import {ApiHostBase} from '../../Api'; 
 
 
 export default class RegisterApplication extends Component {
@@ -40,7 +41,7 @@ export default class RegisterApplication extends Component {
     sendForm(e) {
         e.preventDefault();
 
-        axios.post('http://localhost:8080/application',
+        axios.post(ApiHostBase +'application',
             {
                 alias: this.state.alias,
                 name: this.state.name,
