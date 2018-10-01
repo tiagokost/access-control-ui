@@ -1,8 +1,3 @@
-export const contentStyle = {
-    padding: '20px',
-    maxWidth: '800px',
-    marginTop: '20px'
-}
 
 export const textFieldStyle = {
     display: 'block',
@@ -17,6 +12,23 @@ export const buttonStyle = {
 export const paperStyle ={
     marginTop: '20px',
 }
+
+export const gridStyles = theme => ({
+    root: {
+        flexGrow: 1,
+        textAlign: 'center',
+        margin: '5%'
+
+    },
+    paper: {
+        padding: theme.spacing.unit * 2,
+        textAlign: 'center'
+    },
+    icon: {
+
+    }
+});
+
 
 
 

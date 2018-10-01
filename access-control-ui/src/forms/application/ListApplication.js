@@ -11,7 +11,8 @@ import {
     Toolbar,
     ColumnChooser
 } from '@devexpress/dx-react-grid-material-ui';
-import {ApiHostBase} from '../../Api'; 
+import { ApiHostBase } from '../../Api';
+import { gridStyles } from '../formStyle';
 
 const styles = theme => ({
     root: {
@@ -40,28 +41,28 @@ class ListApplication extends Component {
         super(props);
 
         this.state = {
-            data:[],
+            data: [],
             columns: [
-              { name: 'alias', title: 'alias' },
-              { name: 'name', title: 'Name' },
-              { name: 'description', title: 'Description' },
-              { name: 'id', title: '#ID' },
+                { name: 'alias', title: 'alias' },
+                { name: 'name', title: 'Name' },
+                { name: 'description', title: 'Description' },
+                { name: 'id', title: '#ID' },
             ],
             tableColumnExtensions: [
-              { columnName: 'alias' },
+                { columnName: 'alias' },
             ],
             rows: [],
-            hiddenColumnNames: ['description','id'],
+            hiddenColumnNames: ['description', 'id'],
         };
 
         this.hiddenColumnNamesChange = (hiddenColumnNames) => {
             this.setState({ hiddenColumnNames });
-          };
+        };
     }
 
     componentDidMount() {
 
-        axios.get(ApiHostBase +'application',
+        axios.get(ApiHostBase + 'application',
             {
                 alias: this.state.alias,
                 name: this.state.name,
@@ -92,78 +93,28 @@ class ListApplication extends Component {
     render() {
         const { classes } = this.props;
 
-        const { columns, rows, defaultHiddenColumnNames ,tableColumnExtensions,hiddenColumnNames} = this.state;
+        const { columns, rows, defaultHiddenColumnNames, tableColumnExtensions, hiddenColumnNames } = this.state;
         return (
-      
-            <Paper
-                >
-            <Grid
-              rows={rows}
-              columns={columns}
-            >
-              <Table
-                columnExtensions={tableColumnExtensions}
-              />
-              <TableHeaderRow />
-              <TableColumnVisibility
-                hiddenColumnNames={hiddenColumnNames}
-                onHiddenColumnNamesChange={this.hiddenColumnNamesChange}
-              />
-              <Toolbar />
-              <ColumnChooser />
-            </Grid>
-          </Paper>
+            <div className={classes.root}>
+                <Paper className={classes.paper}>
+                    <Grid
+                        rows={rows}
+                        columns={columns}
+                    >
+                        <Table
+                            columnExtensions={tableColumnExtensions}
+                        />
+                        <TableHeaderRow />
+                        <TableColumnVisibility
+                            hiddenColumnNames={hiddenColumnNames}
+                            onHiddenColumnNamesChange={this.hiddenColumnNamesChange}
+                        />
+                        <Toolbar />
+                        <ColumnChooser />
+                    </Grid>
+                </Paper>
+            </div>
 
-            // <Paper>
-            //     <Grid
-            //         rows={rows}
-            //         columns={columns}
-            //     >
-            //         <Table />
-            //         <TableHeaderRow />
-            //         <TableColumnVisibility
-            //             defaultHiddenColumnNames={defaultHiddenColumnNames}
-            //         />
-            //         <Toolbar />
-            //         <ColumnChooser />
-            //     </Grid>
-            // </Paper>
-            /*  <div clasName={classes.root}>
-                  <Paper>
-                     <Grid
-                         rows={20}
-                         columns={4}>
-                         <Table>
-                            <TableHeaderRow>
-                                 <TableRow>
-                                     <CustomTableCell>#ID</CustomTableCell>
-                                     <CustomTableCell >Name</CustomTableCell>
-                                     <CustomTableCell >Alias</CustomTableCell>
-                                     <CustomTableCell >Description</CustomTableCell>
-                                 </TableRow>
-                                 <TableColumnVisibility
-                                     defaultHiddenColumnNames={true} />
-                             </TableHeaderRow>
-                             <TableBody>
-                                 {
-                                     this.state.data.map(function (row, i) {
-                                         return (
-                                             <TableRow className={classes.row} key={row.id}>
-                                                 <CustomTableCell >{row.id}</CustomTableCell>
-                                                 <CustomTableCell component="th" scope="row">
-                                                     {row.name}
-                                                 </CustomTableCell>
-                                                 <CustomTableCell >{row.alias}</CustomTableCell>
-                                                 <CustomTableCell >{row.description}</CustomTableCell>
-                                             </TableRow>
-                                         )
-                                     })
-                                 }
-                             </TableBody> 
-                         </Table>
-                     </Grid>
-                 </Paper>
-             </div>*/
         )
     }
 }
@@ -171,4 +122,4 @@ ListApplication.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ListApplication);
+export default withStyles(gridStyles)(ListApplication);

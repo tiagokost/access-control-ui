@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { TextField, Button, Dialog } from '@material-ui/core';
-import { paperStyle,textFieldStyle, contentStyle, buttonStyle } from './../formStyle';
+import { TextField, Button, withStyles } from '@material-ui/core';
+import { textFieldStyle, buttonStyle, gridStyles } from './../formStyle';
 import { Paper } from '@material-ui/core';
+import Dialog from './../../components/DDialog';
 
+class PasswordReset extends Component {
 
-
-export default class PasswordReset extends Component {
     constructor() {
         super();
         this.state = {
@@ -20,11 +20,10 @@ export default class PasswordReset extends Component {
 
     }
     render() {
+        const { classes } = this.props;
         return (
-            <div style={contentStyle}>
-                <Paper
-                    className={paperStyle}
-                >
+            <div className={classes.root}>
+                <Paper className={classes.paper}>
                     <form onSubmit={(e) => this.sendForm(e)}>
                         <TextField
                             required={true}
@@ -43,16 +42,17 @@ export default class PasswordReset extends Component {
                             label="Submit"
                         >reset password</Button>
                     </form>
-                    <Dialog
-                        message={this.state.message}
-                        open={this.state.openDialog}
-                        title={this.state.title}
-                        fullScreen={false} />
 
                 </Paper>
-
+                <Dialog
+                    message={this.state.message}
+                    open={this.state.openDialog}
+                    title={this.state.title}
+                    fullScreen={false} />
             </div>
+
 
         );
     }
 }
+export default withStyles(gridStyles)(PasswordReset);

@@ -108,7 +108,7 @@ class DAppBar extends Component {
                         button={true}
                         dense={true}
                         selected={true}>
-                        <SendIcon className={classes.icon}/>
+                        <SendIcon className={classes.icon} />
                         <Link
                             className={classes.listItem} to="/application/all">
                             Applications</Link>
@@ -122,12 +122,12 @@ class DAppBar extends Component {
                 </List>
                 <Divider />
                 <List
-                subheader={<ListSubheader component="div">Account</ListSubheader>}
+                    subheader={<ListSubheader component="div">Account</ListSubheader>}
                 >
                     <ListItem
                         button={true}
                         dense={true}
-                        >
+                    >
                         <SignInIcon className={classes.icon} />
                         <Link
                             className={classes.listItem} to="/account/all">
@@ -136,7 +136,7 @@ class DAppBar extends Component {
                     <ListItem
                         button={true}
                         dense={true}
-                        >
+                    >
                         <SignInIcon className={classes.icon} />
                         <Link
                             className={classes.listItem} to="/login">
@@ -148,6 +148,12 @@ class DAppBar extends Component {
                     >
                         <SignUpIcon className={classes.icon} />
                         <Link className={classes.listItem} to="/signup">Sign Up</Link></ListItem>
+                    <ListItem
+                        button={true}
+                        dense={false}
+                    >
+                        <SignUpIcon className={classes.icon} />
+                        <Link className={classes.listItem} to="/account/activate">Activate</Link></ListItem>
                     <ListItem
                         button={true}
                         dense={true}

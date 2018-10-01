@@ -2,18 +2,17 @@ import React, { Component } from 'react';
 import './App.css';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import {lightBlue} from '@material-ui/core/colors';
-
 import getMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import DAppBar from './components/DAppBar';
 import Login from './forms/account/Login';
 import { Switch,Route } from 'react-router-dom';
-import DBottom from './components/DBottom';
 import SignUp from './forms/account/SignUp';
 import PasswordReset from './forms/account/PasswordReset';
 import RegisterApplication from './forms/application/RegisterApplication';
-import _404 from './forms/account/_404';
+import _404 from './forms/_404';
 import ListApplication from './forms/application/ListApplication';
 import ListAccount from './forms/account/ListAccount';
+import Activate from './forms/account/Activate';
 
 
 const styles = {
@@ -88,6 +87,7 @@ export default class App extends Component {
               <Route path="/application/new" component={RegisterApplication}/>
               <Route path="/application/all" component={ListApplication}/>
               <Route path="/account/all" component={ListAccount}/>
+              <Route path="/account/activate" component={Activate}/>
 
               <Route component={_404}/>
 

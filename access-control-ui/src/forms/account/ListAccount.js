@@ -11,18 +11,8 @@ import {
     Toolbar,
     ColumnChooser
 } from '@devexpress/dx-react-grid-material-ui';
-import {ApiHostBase} from '../../Api'; 
-
-const styles = theme => ({
-    root: {
-        flexGrow: 1
-    },
-    paper: {
-        padding: theme.spacing.unit * 2,
-        textAlign: 'center',
-        color: theme.palette.text.secondary
-    },
-});
+import { ApiHostBase } from '../../Api';
+import { gridStyles } from '../formStyle';
 
 const CustomTableCell = withStyles(theme => ({
     head: {
@@ -32,8 +22,6 @@ const CustomTableCell = withStyles(theme => ({
         fontSize: 14,
     },
 }))(TableCell);
-
-
 
 class ListAccount extends Component {
     constructor(props) {
@@ -61,7 +49,7 @@ class ListAccount extends Component {
 
     componentDidMount() {
 
-        axios.get( ApiHostBase + 'account/inactive',
+        axios.get(ApiHostBase + 'account/inactive',
             {
                 userName: this.state.userName,
                 firstName: this.state.firstName,
@@ -94,23 +82,26 @@ class ListAccount extends Component {
 
         const { columns, rows, defaultHiddenColumnNames, tableColumnExtensions, hiddenColumnNames } = this.state;
         return (
-            <Paper>
-                <Grid
-                    rows={rows}
-                    columns={columns}
-                >
-                    <Table
-                        columnExtensions={tableColumnExtensions}
-                    />
-                    <TableHeaderRow />
-                    <TableColumnVisibility
-                        hiddenColumnNames={hiddenColumnNames}
-                        onHiddenColumnNamesChange={this.hiddenColumnNamesChange}
-                    />
-                    <Toolbar />
-                    <ColumnChooser />
-                </Grid>
-            </Paper>
+            <div className={classes.root}>
+                <Paper className={classes.paper}>
+                    <Grid
+                        rows={rows}
+                        columns={columns}
+                    >
+                        <Table
+                            columnExtensions={tableColumnExtensions}
+                        />
+                        <TableHeaderRow />
+                        <TableColumnVisibility
+                            hiddenColumnNames={hiddenColumnNames}
+                            onHiddenColumnNamesChange={this.hiddenColumnNamesChange}
+                        />
+                        <Toolbar />
+                        <ColumnChooser />
+                    </Grid>
+                </Paper>
+            </div>
+
         )
     }
 }
@@ -118,4 +109,4 @@ ListAccount.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ListAccount);
+export default withStyles(gridStyles)(ListAccount);
