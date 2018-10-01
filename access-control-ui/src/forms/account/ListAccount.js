@@ -83,7 +83,9 @@ class ListAccount extends Component {
         const { columns, rows, defaultHiddenColumnNames, tableColumnExtensions, hiddenColumnNames } = this.state;
         return (
             <div className={classes.root}>
+
                 <Paper className={classes.paper}>
+                    <h1>Account</h1>
                     <Grid
                         rows={rows}
                         columns={columns}

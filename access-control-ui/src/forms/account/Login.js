@@ -16,11 +16,12 @@ class Login extends Component {
     }
 
     render() {
-        const {classes } = this.props;
+        const { classes } = this.props;
         return (
-            
+
             <div className={classes.root}>
                 <Paper className={classes.paper}>
+                    <h1>Login</h1>
                     <form onSubmit={(e) => this.sendForm(e)}>
                         <TextField
                             placeholder="E-mail"

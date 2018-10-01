@@ -73,56 +73,55 @@ class RegisterApplication extends Component {
     render() {
         const { classes } = this.props;
         return (
-            <Paper className={classes.paper}>
-                <div className={classes.root}>
-                    <Paper className={classes.paper}>
-                        <form onSubmit={(e) => this.sendForm(e)}>
-                            <TextField
-                                required={true}
-                                onChange={this.onChange}
-                                value={this.state.userName}
-                                placeholder="Name"
-                                type="text"
-                                id="name"
-                                fullWidth={true}
-                                style={textFieldStyle}></TextField>
-                            <TextField
-                                required={true}
-                                value={this.state.password}
-                                onChange={this.onChange}
-                                placeholder="Alias"
-                                type="text"
-                                id="alias"
-                                fullWidth={true}
-                                style={textFieldStyle}></TextField>
-                            <TextField
-                                required={true}
-                                value={this.state.repeatePassword}
-                                onChange={this.onChange}
-                                placeholder="Description"
-                                type="text"
-                                id="description"
-                                fullWidth={true}
-                                style={textFieldStyle}></TextField>
+            <div className={classes.root}>
 
-                            <Button
-                                type="submit"
-                                style={buttonStyle}
-                                fullWidth={true}
-                                label="Submit"
-                            >save</Button>
-                        </form>
-                        <Dialog
-                            message={this.state.message}
-                            open={this.state.openDialog}
-                            title={this.state.title}
-                            fullScreen={false} />
+                <Paper className={classes.paper}>
+                    <h1>Register Application</h1>
+                    <form onSubmit={(e) => this.sendForm(e)}>
+                        <TextField
+                            required={true}
+                            onChange={this.onChange}
+                            value={this.state.userName}
+                            placeholder="Name"
+                            type="text"
+                            id="name"
+                            fullWidth={true}
+                            style={textFieldStyle}></TextField>
+                        <TextField
+                            required={true}
+                            value={this.state.password}
+                            onChange={this.onChange}
+                            placeholder="Alias"
+                            type="text"
+                            id="alias"
+                            fullWidth={true}
+                            style={textFieldStyle}></TextField>
+                        <TextField
+                            required={true}
+                            value={this.state.repeatePassword}
+                            onChange={this.onChange}
+                            placeholder="Description"
+                            type="text"
+                            id="description"
+                            fullWidth={true}
+                            style={textFieldStyle}></TextField>
 
-                    </Paper>
+                        <Button
+                            type="submit"
+                            style={buttonStyle}
+                            fullWidth={true}
+                            label="Submit"
+                        >save</Button>
+                    </form>
+                    <Dialog
+                        message={this.state.message}
+                        open={this.state.openDialog}
+                        title={this.state.title}
+                        fullScreen={false} />
 
-                </div>
-            </Paper>
+                </Paper>
 
+            </div>
         );
     }
 

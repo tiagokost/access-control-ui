@@ -97,6 +97,7 @@ class ListApplication extends Component {
         return (
             <div className={classes.root}>
                 <Paper className={classes.paper}>
+                    <h1>Application</h1>
                     <Grid
                         rows={rows}
                         columns={columns}

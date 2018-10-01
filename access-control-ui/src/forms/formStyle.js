@@ -17,7 +17,7 @@ export const gridStyles = theme => ({
     root: {
         flexGrow: 1,
         textAlign: 'center',
-        margin: '5%'
+        margin: '2%'
 
     },
     paper: {

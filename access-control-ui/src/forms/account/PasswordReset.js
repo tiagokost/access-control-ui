@@ -24,6 +24,7 @@ class PasswordReset extends Component {
         return (
             <div className={classes.root}>
                 <Paper className={classes.paper}>
+                    <h1>Recover Password</h1>
                     <form onSubmit={(e) => this.sendForm(e)}>
                         <TextField
                             required={true}
@@ -40,7 +41,7 @@ class PasswordReset extends Component {
                             style={buttonStyle}
                             fullWidth={true}
                             label="Submit"
-                        >reset password</Button>
+                        >send</Button>
                     </form>
 
                 </Paper>

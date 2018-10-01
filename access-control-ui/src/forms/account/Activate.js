@@ -64,6 +64,7 @@ class Activate extends Component {
         return (
             <div className={classes.root}>
                 <Paper className={classes.paper}>
+                    <h1>Activate Account</h1>
                     <form onSubmit={(e) => this.sendForm(e)}>
                         <TextField
                             placeholder="User Name (E-mail)"
