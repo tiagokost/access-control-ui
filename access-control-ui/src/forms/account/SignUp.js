@@ -6,6 +6,7 @@ import { textFieldStyle, buttonStyle, gridStyles } from './../formStyle';
 import { ApiHostBase } from '../../Api';
 import { Paper } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
+import Dialog from './../../components/DDialog';
 
 
 class SignUp extends Component {
@@ -14,7 +15,8 @@ class SignUp extends Component {
         this.state = {
             title: 'Dialog',
             message: '',
-            openDialog: false,
+            openDialogActiveAccount: false,
+            openMessage: false,
             userName: '',
             password: '',
             repeatePassword: '',
@@ -70,17 +72,18 @@ class SignUp extends Component {
                 this.setState({
                     title: 'Informe o código para desbloqueio: ',
                     message: "A conta foi criada, você receberá um código para desbloquea-la.",
-                    openDialog: true,
+                    openDialogActiveAccount: true,
+                    openMessage:false,
                     redirect: true
                 });
             })
             .catch(ex => {
                 this.setState({
-                    title: 'Server error',
+                    title: 'Alerta!',
                     message: ex.response.data.message,
-                    openDialog: true
-                }
-                );
+                    openDialogActiveAccount: false,
+                    openMessage: true
+                });
             });
     }
 
@@ -123,17 +126,22 @@ class SignUp extends Component {
                             type="submit"
                             style={buttonStyle}
                             fullWidth={true}
-                            label="Submit"
-                        >create account</Button>
+                            label="Submit">
+                            create account</Button>
                     </form>
 
                 </Paper>
+                <Dialog
+                    message={this.state.message}
+                    open={this.state.openMessage}
+                    title={this.state.title}
+                    fullScreen={false} />
                 <ActiveCodeDialog
                     message={this.state.message}
-                    open={this.state.openDialog}
+                    open={this.state.openDialogActiveAccount}
                     title={this.state.title}
-                    fullScreen={false} 
-                    userName={this.state.userName}/>
+                    fullScreen={false}
+                    userName={this.state.userName} />
             </div>
 
         );

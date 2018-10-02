@@ -15,10 +15,10 @@ class DActiveCodeDialog extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            open: this.props.open,
+            open: props.open,
             title: this.props.title,
-            userName: this.props.userName,
-            message: this.props.message,
+            userName: props.userName,
+            message: props.message,
             activeCode: '',
             showField: true
         }
@@ -37,11 +37,12 @@ class DActiveCodeDialog extends React.Component {
         this.setState({ open: true });
     };
 
-    handleClose = () => {
+    handleOk = () => {
+
         axios.put(ApiHostBase + 'account/activate',
             {
                 activeCode: this.state.activeCode,
-                userName: this.state.userName
+                userName: this.props.userName
             },
             {
                 'Origin': 'http://127.0.0.1:3000',
@@ -56,8 +57,7 @@ class DActiveCodeDialog extends React.Component {
                     message: "Sua conta foi ativada com sucesso!",
                     openDialog: false,
                     showField: false
-                }
-                );
+                });
             })
             .catch(ex => {
                 this.setState({
@@ -67,6 +67,10 @@ class DActiveCodeDialog extends React.Component {
                 }
                 );
             });
+    };
+
+    handleClose = () => {
+        this.setState({ open: false });
 
     };
 
@@ -76,8 +80,6 @@ class DActiveCodeDialog extends React.Component {
 
     sendForm(e) {
         e.preventDefault();
-
-
     }
 
     render() {
@@ -94,24 +96,25 @@ class DActiveCodeDialog extends React.Component {
 
                     <DialogContent>
                         <DialogContentText>
-                            {this.state.message}
+                            <p>{this.props.message}</p>
+                            <p>{this.state.message}</p>
                             <TextField
                                 hidden={this.state.showField}
                                 margin="dense"
-                                id="userName"
+                                id="activeCode"
                                 label="Active code"
                                 type="text"
                                 fullWidth
                                 onChange={this.onChange}
                             />
-              
+
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={this.handleClose} color="primary">
                             cancel
                         </Button>
-                        <Button onClick={this.handleClose} color="primary" autoFocus>
+                        <Button onClick={this.handleOk} color="primary" autoFocus>
                             ok
                         </Button>
                     </DialogActions>
