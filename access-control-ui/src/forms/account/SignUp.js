@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { TextField, Button, withStyles } from '@material-ui/core';
 import axios from 'axios';
-import Dialog from './../../components/DDialog';
+import ActiveCodeDialog from './../../components/DActiveCodeDialog';
 import { textFieldStyle, buttonStyle, gridStyles } from './../formStyle';
 import { ApiHostBase } from '../../Api';
 import { Paper } from '@material-ui/core';
+import { Redirect } from 'react-router-dom';
 
 
 class SignUp extends Component {
@@ -18,7 +19,8 @@ class SignUp extends Component {
             password: '',
             repeatePassword: '',
             firstName: '',
-            lastName: ''
+            lastName: '',
+            redirect: false
         }
     }
     constructor() {
@@ -39,9 +41,14 @@ class SignUp extends Component {
     }
 
     componentDidMount() {
-
-
     }
+
+    renderRedirect = () => {
+        if (this.state.redirect) {
+            return <Redirect to='/account/activate' />
+        }
+    }
+
 
     sendForm(e) {
         e.preventDefault();
@@ -61,11 +68,11 @@ class SignUp extends Component {
             .then(res => {
 
                 this.setState({
-                    title: 'Success!',
+                    title: 'Informe o código para desbloqueio: ',
                     message: "A conta foi criada, você receberá um código para desbloquea-la.",
-                    openDialog: true
-                }
-                );
+                    openDialog: true,
+                    redirect: true
+                });
             })
             .catch(ex => {
                 this.setState({
@@ -109,7 +116,7 @@ class SignUp extends Component {
                             placeholder="Password repeat"
                             type="password"
                             id="repeatePassword"
-                            fullWidth={true}
+                            fullWidth
                             style={textFieldStyle}></TextField>
 
                         <Button
@@ -121,11 +128,12 @@ class SignUp extends Component {
                     </form>
 
                 </Paper>
-                <Dialog
+                <ActiveCodeDialog
                     message={this.state.message}
                     open={this.state.openDialog}
                     title={this.state.title}
-                    fullScreen={false} />
+                    fullScreen={false} 
+                    userName={this.state.userName}/>
             </div>
 
         );

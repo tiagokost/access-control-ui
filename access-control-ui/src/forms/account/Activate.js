@@ -14,7 +14,7 @@ class Activate extends Component {
             message: '',
             openDialog: false,
             userName: '',
-            activateCode: ''
+            activeCode: ''
         }
         this.onChange = (event) => {
             const state = Object.assign({}, this.state);
@@ -29,7 +29,7 @@ class Activate extends Component {
     sendForm(e) {
         e.preventDefault();
 
-        axios.post(ApiHostBase + 'account/acivate',
+        axios.put(ApiHostBase +'account/activate',
             {
                 activeCode: this.state.activeCode,
                 userName: this.state.userName
@@ -44,7 +44,7 @@ class Activate extends Component {
 
                 this.setState({
                     title: 'Success!',
-                    message: "A conta foi criada, você receberá um código para desbloquea-la.",
+                    message: "Sua conta foi ativada com sucesso!",
                     openDialog: true
                 }
                 );
@@ -69,12 +69,14 @@ class Activate extends Component {
                         <TextField
                             placeholder="User Name (E-mail)"
                             type="text"
+                            onChange={this.onChange}
                             id="userName"
                             fullWidth={true}
                             style={textFieldStyle}></TextField>
                         <TextField
                             placeholder="Active code"
                             type="text"
+                            onChange={this.onChange}
                             id="activeCode"
                             fullWidth={true}
                             style={textFieldStyle}></TextField>
@@ -83,7 +85,7 @@ class Activate extends Component {
                             style={buttonStyle}
                             fullWidth={true}
                             label="Submit"
-                        >Login</Button>
+                        >confirm</Button>
                     </form>
                 </Paper>
                 <Dialog
