@@ -13,8 +13,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import SvgIcon from '@material-ui/core/SvgIcon';
-import SendIcon from '@material-ui/icons/Send';
 import ListSubheader from '@material-ui/core/ListSubheader';
+import { appName, appTitle } from '../Config';
 
 const styles = {
     list: {
@@ -34,6 +34,17 @@ const styles = {
         padding: '5px'
 
     },
+    root: {
+        flexGrow: 1
+
+    },
+    menuButton: {
+        marginLeft: -17,
+        marginRight: 20
+    },
+    grow: {
+        flexGrow: 1,
+    }
 };
 
 function SignInIcon(props) {
@@ -56,6 +67,15 @@ function RecoverPasswordIcon(props) {
     return (
         <SvgIcon {...props}>
             <path fill="#000000" d="M10,4A4,4 0 0,1 14,8A4,4 0 0,1 10,12A4,4 0 0,1 6,8A4,4 0 0,1 10,4M10,14C14.42,14 18,15.79 18,18V20H2V18C2,15.79 5.58,14 10,14M20,12V7H22V12H20M20,16V14H22V16H20Z" />
+        </SvgIcon>
+    )
+}
+
+function Icon(props) {
+    return (
+        <SvgIcon {...props}>
+            <path d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.89-2-2-2zm0 14H5V8h14v10z" />
+            <path fill="none" d="M0 0h24v24H0z" />
         </SvgIcon>
     )
 }
@@ -91,97 +111,102 @@ class DAppBar extends Component {
         });
     };
 
-
-
     render() {
+
+        const { anchorEl } = this.state;
+
+        const open = Boolean(anchorEl);
 
         const { classes } = this.props;
 
         const sideList = (
 
-
             <div className={classes.list}>
-                <List
-                    subheader={<ListSubheader component="div">Application</ListSubheader>}
-                >
+
+
+                <List subheader={<ListSubheader component="div">Application</ListSubheader>}>
                     <ListItem
                         button={true}
                         dense={true}
                         selected={true}>
-                        <SendIcon className={classes.icon} />
+                        <Icon className={classes.icon} />
                         <Link
                             className={classes.listItem} to="/application/all">
                             Applications</Link>
                     </ListItem>
-                    <ListItem
-                        button={true}
-                        dense={false}
-                    >
-                        <SignUpIcon className={classes.icon} />
-                        <Link className={classes.listItem} to="/application/new">New</Link></ListItem>
                 </List>
                 <Divider />
-                <List
-                    subheader={<ListSubheader component="div">Account</ListSubheader>}
-                >
+
+                <List subheader={<ListSubheader component="div">Settings</ListSubheader>}>
                     <ListItem
                         button={true}
                         dense={true}
-                    >
+                        selected={false}>
+                        <Icon className={classes.icon} />
+                        <Link
+                            className={classes.listItem} to="/application/all">Applications</Link>
+                    </ListItem>
+                    <ListItem
+                        button={true}
+                        dense={false}>
+                        <Icon className={classes.icon} />
+                        <Link className={classes.listItem} to="/application/new">New application</Link></ListItem>
+                    <ListItem
+                        button={true}
+                        dense={true}
+                        selected={false}>
+                        <Icon className={classes.icon} />
+                        <Link className={classes.listItem} to="/scope/all">Scope</Link>
+                    </ListItem>
+                    <ListItem
+                        button={true}
+                        dense={true}
+                        selected={false}>
+                        <Icon className={classes.icon} />
+                        <Link
+                            className={classes.listItem} to="/role/all">
+                            Roles</Link>
+                    </ListItem>
+                    <Divider/>
+                    <ListItem
+                        button={true}
+                        dense={true} >
                         <SignInIcon className={classes.icon} />
                         <Link
                             className={classes.listItem} to="/account/all">
-                            Account</Link>
+                            All accounts</Link>
                     </ListItem>
                     <ListItem
                         button={true}
                         dense={true}
-                    >
-                        <SignInIcon className={classes.icon} />
+                        selected={false}>
+                        <Icon className={classes.icon} />
                         <Link
-                            className={classes.listItem} to="/login">
-                            Sign In</Link>
+                            className={classes.listItem} to="/preferences">
+                            Preferences </Link>
                     </ListItem>
-                    <ListItem
-                        button={true}
-                        dense={false}
-                    >
-                        <SignUpIcon className={classes.icon} />
-                        <Link className={classes.listItem} to="/signup">Sign Up</Link></ListItem>
-                    <ListItem
-                        button={true}
-                        dense={false}
-                    >
-                        <SignUpIcon className={classes.icon} />
-                        <Link className={classes.listItem} to="/account/activate">Activate</Link></ListItem>
-                    <ListItem
-                        button={true}
-                        dense={true}
-                    >
-                        <RecoverPasswordIcon className={classes.icon} />
-                        <Link className={classes.listItem} to="/password-reset">Reset password</Link></ListItem>
                 </List>
+                <Divider />
 
             </div>
+
         );
 
-        const { anchorEl } = this.state;
-        const open = Boolean(anchorEl);
-
         return (
-            <div>
+            <div className={classes.root}>
                 <AppBar
                     position="static"
-                    title="Devscape - Access Control">
+                    title={appTitle}>
                     <Toolbar>
                         <IconButton onClick={this.toggleDrawer('left', true)} color="inherit" aria-label="Menu">
                             <MenuIcon />
                         </IconButton>
-                        <Typography variant="title" color="inherit" >
-                            <span>Devscape</span>
+                        <Typography className={classes.grow} variant="title" color="inherit" >
+                            <span>&#160;{appName}&#160;</span>
                         </Typography>
                         <div>
                             <IconButton
+                                className={classes.menuButton}
                                 aria-owns={open ? 'menu-appbar' : null}
                                 aria-haspopup="true"
                                 onClick={this.handleMenu}
@@ -203,8 +228,11 @@ class DAppBar extends Component {
                                 open={open}
                                 onClose={this.handleClose}
                             >
-                                <MenuItem onClick={this.handleClose}>Sig In</MenuItem>
-                                <MenuItem onClick={this.handleClose}>Sig Up</MenuItem>
+                                <MenuItem onClick={this.handleClose}> <SignInIcon className={classes.icon} /><Link className={classes.listItem} to="/login"> Sig In</Link></MenuItem>
+                                <MenuItem onClick={this.handleClose}> <SignUpIcon className={classes.icon} /><Link className={classes.listItem} to="/signup"> Sig Up</Link></MenuItem>
+                                <MenuItem onClick={this.handleClose}> <RecoverPasswordIcon className={classes.icon} /><Link className={classes.listItem} to="/account/password-reset"> Password reset</Link></MenuItem>
+                                <MenuItem onClick={this.handleClose}> <Icon className={classes.icon} /><Link className={classes.listItem} to="/account/settings"> Personal settings</Link></MenuItem>
+
                             </Menu>
                         </div>
                     </Toolbar>
