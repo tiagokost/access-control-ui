@@ -97,14 +97,12 @@ class ListApplication extends Component {
         return (
             <div className={classes.root}>
                 <Paper className={classes.paper}>
-                    <h1>Application</h1>
+                    <h2>Application</h2>
                     <Grid
                         rows={rows}
-                        columns={columns}
-                    >
+                        columns={columns}>
                         <Table
-                            columnExtensions={tableColumnExtensions}
-                        />
+                            columnExtensions={tableColumnExtensions}/>
                         <TableHeaderRow />
                         <TableColumnVisibility
                             hiddenColumnNames={hiddenColumnNames}

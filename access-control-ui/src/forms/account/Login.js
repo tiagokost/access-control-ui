@@ -21,7 +21,7 @@ class Login extends Component {
 
             <div className={classes.root}>
                 <Paper className={classes.paper}>
-                    <h1>Login</h1>
+                    <h2>Login</h2>
                     <form onSubmit={(e) => this.sendForm(e)}>
                         <TextField
                             placeholder="E-mail"

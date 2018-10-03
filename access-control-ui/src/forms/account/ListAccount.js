@@ -85,7 +85,7 @@ class ListAccount extends Component {
             <div className={classes.root}>
 
                 <Paper className={classes.paper}>
-                    <h1>Account</h1>
+                    <h2>Account</h2>
                     <Grid
                         rows={rows}
                         columns={columns}

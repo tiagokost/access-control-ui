@@ -123,20 +123,6 @@ class DAppBar extends Component {
 
             <div className={classes.list}>
 
-
-                <List subheader={<ListSubheader component="div">Application</ListSubheader>}>
-                    <ListItem
-                        button={true}
-                        dense={true}
-                        selected={true}>
-                        <Icon className={classes.icon} />
-                        <Link
-                            className={classes.listItem} to="/application/all">
-                            Applications</Link>
-                    </ListItem>
-                </List>
-                <Divider />
-
                 <List subheader={<ListSubheader component="div">Settings</ListSubheader>}>
                     <ListItem
                         button={true}

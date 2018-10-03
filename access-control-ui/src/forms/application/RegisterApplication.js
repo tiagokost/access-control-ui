@@ -76,7 +76,7 @@ class RegisterApplication extends Component {
             <div className={classes.root}>
 
                 <Paper className={classes.paper}>
-                    <h1>Register Application</h1>
+                    <h2>Register Application</h2>
                     <form onSubmit={(e) => this.sendForm(e)}>
                         <TextField
                             required={true}

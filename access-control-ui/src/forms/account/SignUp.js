@@ -92,7 +92,7 @@ class SignUp extends Component {
         return (
             <div className={classes.root}>
                 <Paper className={classes.paper}>
-                    <h1>Sign Up</h1>
+                    <h2>Sign Up</h2>
                     <form onSubmit={(e) => this.sendForm(e)}>
                         <TextField
                             required={true}
