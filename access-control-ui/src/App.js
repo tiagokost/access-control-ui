@@ -5,7 +5,7 @@ import {lightBlue} from '@material-ui/core/colors';
 import getMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import DAppBar from './components/DAppBar';
 import Login from './forms/account/Login';
-import { Switch,Route } from 'react-router-dom';
+import { Switch,Route,Redirect } from 'react-router-dom';
 import SignUp from './forms/account/SignUp';
 import PasswordReset from './forms/account/PasswordReset';
 import RegisterApplication from './forms/application/RegisterApplication';
@@ -14,21 +14,8 @@ import ListApplication from './forms/application/ListApplication';
 import ListAccount from './forms/account/ListAccount';
 import ListRole from './forms/role/ListRole';
 import Activate from './forms/account/Activate';
+import {isAuthenticated} from './Auth';
 
-
-
-const styles = {
-  root: {
-    flexGrow: 1,
-  },
-  grow: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20,
-  },
-};
 
 var footerStyles = {
   backgroundColor: "#F8F8F8",
@@ -59,6 +46,18 @@ const muiTheme = getMuiTheme({
 
 })
 
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={props =>
+      isAuthenticated() ? (
+        <Component {...props} />
+      ) : (
+        <Redirect to={{ pathname: "/", state: { from: props.location } }} />
+      )
+    }
+  />
+);
 
 export default class App extends Component {
   
@@ -86,11 +85,11 @@ export default class App extends Component {
               <Route path="/login" component={Login}/>
               <Route path="/signup" component={SignUp}/>
               <Route path="/account/password-reset" component={PasswordReset}/>
-              <Route path="/application/new" component={RegisterApplication}/>
-              <Route path="/application/all" component={ListApplication}/>
-              <Route path="/account/all" component={ListAccount}/>
+              <PrivateRoute path="/application/new" component={RegisterApplication}/>
+              <PrivateRoute path="/application/all" component={ListApplication}/>
+              <PrivateRoute path="/account/all" component={ListAccount}/>
               <Route path="/account/activate" component={Activate}/>
-              <Route path="/role/all" component={ListRole}/>
+              <PrivateRoute path="/role/all" component={ListRole}/>
               <Route component={_404}/>
 
             </Switch>
