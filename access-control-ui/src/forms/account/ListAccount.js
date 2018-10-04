@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Paper } from '@material-ui/core';
@@ -15,7 +14,7 @@ import {
     TableFilterRow,
     TableSelection
 } from '@devexpress/dx-react-grid-material-ui';
-import { ApiHostBase, HeaderRequest } from '../../Api';
+import api, { ApiHostBase, HeaderRequest } from '../../Api';
 import { gridStyles } from '../formStyle';
 import {
     Column,
@@ -51,12 +50,7 @@ class ListAccount extends Component {
 
     componentDidMount() {
 
-        axios.get(ApiHostBase + 'account/inactive',
-            {
-                userName: this.state.userName,
-                firstName: this.state.firstName,
-                lastName: this.state.lastName
-            },
+        api.get(ApiHostBase + 'account/inactive',
             HeaderRequest
         )
             .then(res => {
@@ -85,7 +79,6 @@ class ListAccount extends Component {
                 <RGrid container spacing={24}>
                     <RGrid item xs={10}>
                         <Paper className={classes.paper}>
-                            <h2>Account</h2>
                             <Grid
                                 rows={rows}
                                 columns={columns}>
@@ -144,13 +137,12 @@ class ListAccount extends Component {
 
                     <RGrid item xs={2}>
                         <Paper className={classes.paper}>
-                            <strong>Info or descripition..</strong>
+                            <strong>Account</strong>
                             <p>Brief description of the content being listed.</p>
                         </Paper>
                     </RGrid>
                 </RGrid>
             </div>
-
         )
     }
 }

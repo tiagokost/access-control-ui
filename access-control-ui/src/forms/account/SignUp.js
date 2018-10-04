@@ -3,8 +3,9 @@ import { TextField, Button, withStyles } from '@material-ui/core';
 import axios from 'axios';
 import ActiveCodeDialog from './../../components/DActiveCodeDialog';
 import { textFieldStyle, buttonStyle, gridStyles } from './../formStyle';
-import { ApiHostBase } from '../../Api';
+import { ApiHostBase, HeaderRequest } from '../../Api';
 import { Paper } from '@material-ui/core';
+import RGrid from '@material-ui/core/Grid';
 import { Redirect } from 'react-router-dom';
 import Dialog from './../../components/DDialog';
 
@@ -51,7 +52,6 @@ class SignUp extends Component {
         }
     }
 
-
     sendForm(e) {
         e.preventDefault();
 
@@ -61,11 +61,7 @@ class SignUp extends Component {
                 password: this.state.password,
                 repeatePassword: this.state.repeatePassword
             },
-            {
-                'Origin': 'http://127.0.0.1:3000',
-                'Authorization': 'Basic ZGV2c2NhcGU6MTIzNDU2',
-                'Content-Type': 'application/json'
-            }
+            HeaderRequest
         )
             .then(res => {
 
@@ -73,7 +69,7 @@ class SignUp extends Component {
                     title: 'Informe o código para desbloqueio: ',
                     message: "A conta foi criada, você receberá um código para desbloquea-la.",
                     openDialogActiveAccount: true,
-                    openMessage:false,
+                    openMessage: false,
                     redirect: true
                 });
             })
@@ -82,7 +78,8 @@ class SignUp extends Component {
                     title: 'Alerta!',
                     message: ex.response.data.message,
                     openDialogActiveAccount: false,
-                    openMessage: true
+                    openMessage: true,
+                    redirect: false
                 });
             });
     }
@@ -91,46 +88,57 @@ class SignUp extends Component {
         const { classes } = this.props;
         return (
             <div className={classes.root}>
-                <Paper className={classes.paper}>
-                    <h2>Sign Up</h2>
-                    <form onSubmit={(e) => this.sendForm(e)}>
-                        <TextField
-                            required={true}
-                            onChange={this.onChange}
-                            value={this.state.userName}
-                            placeholder="User Name (E-mail)"
-                            type="text"
-                            id="userName"
-                            fullWidth={true}
-                            style={textFieldStyle}></TextField>
-                        <TextField
-                            required={true}
-                            value={this.state.password}
-                            onChange={this.onChange}
-                            placeholder="Password"
-                            type="password"
-                            id="password"
-                            fullWidth={true}
-                            style={textFieldStyle}></TextField>
-                        <TextField
-                            required={true}
-                            value={this.state.repeatePassword}
-                            onChange={this.onChange}
-                            placeholder="Password repeat"
-                            type="password"
-                            id="repeatePassword"
-                            fullWidth
-                            style={textFieldStyle}></TextField>
+                <RGrid container spacing={24}>
+                    <RGrid item xs={10}>
+                        <Paper className={classes.paper}>
+                            <h2>Sign Up</h2>
+                            <form onSubmit={(e) => this.sendForm(e)}>
+                                <TextField
+                                    required={true}
+                                    onChange={this.onChange}
+                                    value={this.state.userName}
+                                    placeholder="User Name (E-mail)"
+                                    type="text"
+                                    id="userName"
+                                    fullWidth={true}
+                                    style={textFieldStyle}></TextField>
+                                <TextField
+                                    required={true}
+                                    value={this.state.password}
+                                    onChange={this.onChange}
+                                    placeholder="Password"
+                                    type="password"
+                                    id="password"
+                                    fullWidth={true}
+                                    style={textFieldStyle}></TextField>
+                                <TextField
+                                    required={true}
+                                    value={this.state.repeatePassword}
+                                    onChange={this.onChange}
+                                    placeholder="Password repeat"
+                                    type="password"
+                                    id="repeatePassword"
+                                    fullWidth
+                                    style={textFieldStyle}></TextField>
 
-                        <Button
-                            type="submit"
-                            style={buttonStyle}
-                            fullWidth={true}
-                            label="Submit">
-                            create account</Button>
-                    </form>
+                                <Button
+                                    type="submit"
+                                    style={buttonStyle}
+                                    fullWidth={true}
+                                    label="Submit">
+                                    create account</Button>
+                            </form>
 
-                </Paper>
+                        </Paper>
+                    </RGrid>
+                    <RGrid item xs={2}>
+                        <Paper className={classes.paper}>
+                            <strong>Register account</strong>
+                            <p>Brief description of the content being listed.</p>
+                        </Paper>
+                    </RGrid>
+                </RGrid>
+
                 <Dialog
                     message={this.state.message}
                     open={this.state.openMessage}

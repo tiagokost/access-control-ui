@@ -4,28 +4,28 @@ import axios from 'axios';
 import Dialog from './../../components/DDialog';
 import { Paper } from '@material-ui/core';
 import { gridStyles, textFieldStyle, buttonStyle } from './../formStyle';
-import { ApiHostBase } from '../../Api';
+import { ApiHostBase, HeaderRequest } from '../../Api';
+import RGrid from '@material-ui/core/Grid';
+import {titleDefaultDialog} from '../../Config';
+import { Redirect } from 'react-router-dom';
+
 
 
 class RegisterApplication extends Component {
 
-    clearForm() {
-        this.state = {
-            title: 'Dialog',
-            message: '',
-            openDialog: false,
-            alias: '',
-            name: '',
-            description: ''
-        }
-    }
 
     constructor() {
 
         super();
-
-        this.clearForm();
-
+        this.state = {
+            title: titleDefaultDialog,
+            message: '',
+            openDialog: false,
+            alias: '',
+            name: '',
+            description: '',
+            redirect: false
+        }
         this.onChange = (event) => {
             const state = Object.assign({}, this.state);
             const fieldName = event.target.id;
@@ -34,8 +34,18 @@ class RegisterApplication extends Component {
         }
     }
 
+    clearForm = () =>{
+        document.getElementById("form").reset();
+    }
+
     componentDidMount() {
 
+    }
+
+    renderRedirect = () => {
+        if (this.state.redirect) {
+            return <Redirect to='/application/all' />
+        }
     }
 
     sendForm(e) {
@@ -47,26 +57,27 @@ class RegisterApplication extends Component {
                 name: this.state.name,
                 description: this.state.description
             },
-            {
-                'Origin': 'http://127.0.0.1:3000',
-                'Authorization': 'Basic ZGV2c2NhcGU6MTIzNDU2',
-                'Content-Type': 'application/json'
-            }
+            HeaderRequest
         )
             .then(res => {
-                console.log(res.data);
-
+               
+                this.setState({
+                    title: 'Sucesso!',
+                    message: 'Aplitivo cadastrado com sucesso!',
+                    openDialog: true,
+                    redirect: true
+                });
                 this.clearForm();
 
             })
             .catch(res => {
                 this.setState({
-                    title: 'Error',
+                    title: 'Erro!',
                     message: res.message,
-                    openDialog: true
-                }
-                );
-                console.log('erro: ' + res);
+                    openDialog: true,
+                    redirect: false
+                });
+
             });
     }
 
@@ -75,51 +86,62 @@ class RegisterApplication extends Component {
         return (
             <div className={classes.root}>
 
-                <Paper className={classes.paper}>
-                    <h2>Register Application</h2>
-                    <form onSubmit={(e) => this.sendForm(e)}>
-                        <TextField
-                            required={true}
-                            onChange={this.onChange}
-                            value={this.state.userName}
-                            placeholder="Name"
-                            type="text"
-                            id="name"
-                            fullWidth={true}
-                            style={textFieldStyle}></TextField>
-                        <TextField
-                            required={true}
-                            value={this.state.password}
-                            onChange={this.onChange}
-                            placeholder="Alias"
-                            type="text"
-                            id="alias"
-                            fullWidth={true}
-                            style={textFieldStyle}></TextField>
-                        <TextField
-                            required={false}
-                            value={this.state.repeatePassword}
-                            onChange={this.onChange}
-                            placeholder="Description"
-                            type="text"
-                            id="description"
-                            fullWidth={true}
-                            style={textFieldStyle}></TextField>
+                <RGrid container spacing={24}>
+                    <RGrid item xs={10}>
+                        <Paper className={classes.paper}>
+                            <form id="form" onSubmit={(e) => this.sendForm(e)}>
+                                <TextField
+                                    required={true}
+                                    onChange={this.onChange}
+                                    value={this.state.userName}
+                                    placeholder="Name"
+                                    type="text"
+                                    id="name"
+                                    fullWidth={true}
+                                    style={textFieldStyle}></TextField>
+                                <TextField
+                                    required={true}
+                                    value={this.state.password}
+                                    onChange={this.onChange}
+                                    placeholder="Alias"
+                                    type="text"
+                                    id="alias"
+                                    fullWidth={true}
+                                    style={textFieldStyle}></TextField>
+                                <TextField
+                                    required={false}
+                                    value={this.state.repeatePassword}
+                                    onChange={this.onChange}
+                                    placeholder="Description"
+                                    type="text"
+                                    id="description"
+                                    fullWidth={true}
+                                    style={textFieldStyle}></TextField>
 
-                        <Button
-                            type="submit"
-                            style={buttonStyle}
-                            fullWidth={true}
-                            label="Submit"
-                        >save</Button>
-                    </form>
-                    <Dialog
-                        message={this.state.message}
-                        open={this.state.openDialog}
-                        title={this.state.title}
-                        fullScreen={false} />
+                                <Button
+                                    type="submit"
+                                    style={buttonStyle}
+                                    fullWidth={true}
+                                    label="Submit"
+                                >save</Button>
+                            </form>
 
-                </Paper>
+                        </Paper>
+                    </RGrid>
+                    <RGrid item xs={2}>
+                        <Paper className={classes.paper}>
+                            <strong>Register Application</strong>
+                            <p>Brief description of the content being listed.</p>
+                        </Paper>
+                    </RGrid>
+                </RGrid>
+
+                <Dialog
+                    message={this.state.message}
+                    open={this.state.openDialog}
+                    title={this.state.title}
+                    fullScreen={false} />
+   
 
             </div>
         );
