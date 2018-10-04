@@ -4,7 +4,7 @@ import axios from 'axios';
 import Dialog from './../../components/DDialog';
 import { Paper } from '@material-ui/core';
 import { gridStyles, textFieldStyle, buttonStyle } from './../formStyle';
-import { ApiHostBase, HeaderRequest } from '../../Api';
+import api, { ApiHostBase, HeaderRequest } from '../../Api';
 import RGrid from '@material-ui/core/Grid';
 import {titleDefaultDialog} from '../../Config';
 import { Redirect } from 'react-router-dom';
@@ -51,13 +51,12 @@ class RegisterApplication extends Component {
     sendForm(e) {
         e.preventDefault();
 
-        axios.post(ApiHostBase + 'application',
+        api.post(ApiHostBase + 'application',
             {
                 alias: this.state.alias,
                 name: this.state.name,
                 description: this.state.description
-            },
-            HeaderRequest
+            }
         )
             .then(res => {
                

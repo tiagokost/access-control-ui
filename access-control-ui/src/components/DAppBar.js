@@ -15,6 +15,7 @@ import { withStyles } from '@material-ui/core/styles';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import { appName, appTitle } from '../Config';
+import { isAuthenticated } from '../Auth';
 
 const styles = {
     list: {
@@ -124,14 +125,14 @@ class DAppBar extends Component {
             <div className={classes.list}>
 
                 <List subheader={<ListSubheader component="div">Settings</ListSubheader>}>
-                    <ListItem
+                {(!isAuthenticated) && <ListItem
                         button={true}
                         dense={true}
                         selected={false}>
                         <Icon className={classes.icon} />
                         <Link
                             className={classes.listItem} to="/application/all">Applications</Link>
-                    </ListItem>
+                    </ListItem>}
                     <ListItem
                         button={true}
                         dense={false}>
@@ -153,7 +154,7 @@ class DAppBar extends Component {
                             className={classes.listItem} to="/role/all">
                             Roles</Link>
                     </ListItem>
-                    <Divider/>
+                    <Divider />
                     <ListItem
                         button={true}
                         dense={true} >
@@ -214,10 +215,11 @@ class DAppBar extends Component {
                                 open={open}
                                 onClose={this.handleClose}
                             >
-                                <MenuItem onClick={this.handleClose}> <SignInIcon className={classes.icon} /><Link className={classes.listItem} to="/login"> Sig In</Link></MenuItem>
-                                <MenuItem onClick={this.handleClose}> <SignUpIcon className={classes.icon} /><Link className={classes.listItem} to="/signup"> Sig Up</Link></MenuItem>
-                                <MenuItem onClick={this.handleClose}> <RecoverPasswordIcon className={classes.icon} /><Link className={classes.listItem} to="/account/password-reset"> Password reset</Link></MenuItem>
-                                <MenuItem onClick={this.handleClose}> <Icon className={classes.icon} /><Link className={classes.listItem} to="/account/settings"> Personal settings</Link></MenuItem>
+
+                                {(!isAuthenticated) && <MenuItem onClick={this.handleClose}> <SignInIcon className={classes.icon} /><Link className={classes.listItem} to="/login"> Sig In</Link></MenuItem>}
+                                {(!isAuthenticated) && <MenuItem onClick={this.handleClose}> <SignUpIcon className={classes.icon} /><Link className={classes.listItem} to="/signup"> Sig Up</Link></MenuItem>}
+                                {(!isAuthenticated) && <MenuItem onClick={this.handleClose}> <RecoverPasswordIcon className={classes.icon} /><Link className={classes.listItem} to="/account/password-reset"> Password reset</Link></MenuItem>}
+                                {(isAuthenticated) && <MenuItem onClick={this.handleClose}> <Icon className={classes.icon} /><Link className={classes.listItem} to="/account/settings"> Personal settings</Link></MenuItem>}
 
                             </Menu>
                         </div>

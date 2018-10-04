@@ -50,9 +50,7 @@ class ListAccount extends Component {
 
     componentDidMount() {
 
-        api.get(ApiHostBase + 'account/inactive',
-            HeaderRequest
-        )
+        api.get(ApiHostBase + 'account/inactive')
             .then(res => {
                 this.setState({
                     rows: res.data

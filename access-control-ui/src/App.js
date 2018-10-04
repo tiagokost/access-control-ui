@@ -95,12 +95,12 @@ export default class App extends Component {
             </Switch>
           </main>
 
-         {/* <footer>
+          <footer>
             <div style={phantom} />
             <div style={footerStyles}>
-                <DBottom/>   
+                {/* <Bottom/>    */}
             </div>
-          </footer> */}
+          </footer> 
         </div>
           
       </MuiThemeProvider>

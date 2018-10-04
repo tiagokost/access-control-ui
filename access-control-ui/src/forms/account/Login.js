@@ -8,11 +8,6 @@ import { Paper } from '@material-ui/core';
 class Login extends Component {
     sendForm(e) {
         e.preventDefault();
-        var data = {
-            email: document.getElementById('email').value,
-            password: document.getElementById('password').value
-        };
-
     }
 
     render() {

@@ -3,7 +3,7 @@ import { TextField, Button, withStyles } from '@material-ui/core';
 import axios from 'axios';
 import ActiveCodeDialog from './../../components/DActiveCodeDialog';
 import { textFieldStyle, buttonStyle, gridStyles } from './../formStyle';
-import { ApiHostBase, HeaderRequest } from '../../Api';
+import api, { ApiHostBase, HeaderRequest } from '../../Api';
 import { Paper } from '@material-ui/core';
 import RGrid from '@material-ui/core/Grid';
 import { Redirect } from 'react-router-dom';
@@ -55,13 +55,12 @@ class SignUp extends Component {
     sendForm(e) {
         e.preventDefault();
 
-        axios.post(ApiHostBase + 'account',
+        api.post(ApiHostBase + 'account',
             {
                 userName: this.state.userName,
                 password: this.state.password,
                 repeatePassword: this.state.repeatePassword
-            },
-            HeaderRequest
+            }
         )
             .then(res => {
 
