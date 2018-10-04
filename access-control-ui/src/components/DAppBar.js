@@ -125,44 +125,40 @@ class DAppBar extends Component {
             <div className={classes.list}>
 
                 <List subheader={<ListSubheader component="div">Settings</ListSubheader>}>
-                {(!isAuthenticated) && <ListItem
+                    {isAuthenticated && (<ListItem
                         button={true}
                         dense={true}
                         selected={false}>
                         <Icon className={classes.icon} />
                         <Link
-                            className={classes.listItem} to="/application/all">Applications</Link>
-                    </ListItem>}
-                    <ListItem
+                            className={classes.listItem} to="/application/all">Applications</Link></ListItem>)}
+                    {isAuthenticated  && (<ListItem
                         button={true}
                         dense={false}>
                         <Icon className={classes.icon} />
-                        <Link className={classes.listItem} to="/application/new">New application</Link></ListItem>
-                    <ListItem
+                        <Link className={classes.listItem} to="/application/new">New application</Link></ListItem>)}
+                    {isAuthenticated  && (<ListItem
                         button={true}
                         dense={true}
                         selected={false}>
                         <Icon className={classes.icon} />
-                        <Link className={classes.listItem} to="/scope/all">Scope</Link>
-                    </ListItem>
-                    <ListItem
+                        <Link className={classes.listItem} to="/scope/all">Scope</Link></ListItem>)}
+                    {isAuthenticated  && (<ListItem
                         button={true}
                         dense={true}
                         selected={false}>
                         <Icon className={classes.icon} />
                         <Link
                             className={classes.listItem} to="/role/all">
-                            Roles</Link>
-                    </ListItem>
-                    <Divider />
-                    <ListItem
+                            Roles</Link></ListItem>)}
+                    {isAuthenticated && (<Divider />)}
+                    {isAuthenticated && (<ListItem
                         button={true}
                         dense={true} >
                         <SignInIcon className={classes.icon} />
                         <Link
                             className={classes.listItem} to="/account/all">
-                            All accounts</Link>
-                    </ListItem>
+                            All accounts</Link></ListItem>)}
                     <ListItem
                         button={true}
                         dense={true}
