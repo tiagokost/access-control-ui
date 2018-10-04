@@ -15,7 +15,7 @@ import {
     TableFilterRow,
     TableSelection
 } from '@devexpress/dx-react-grid-material-ui';
-import { ApiHostBase } from '../../Api';
+import { ApiHostBase, HeaderRequest } from '../../Api';
 import { gridStyles } from '../formStyle';
 import {
     Column,
@@ -57,11 +57,7 @@ class ListAccount extends Component {
                 firstName: this.state.firstName,
                 lastName: this.state.lastName
             },
-            {
-                'Origin': 'http://127.0.0.1:3000',
-                'Authorization': 'Basic ZGV2c2NhcGU6MTIzNDU2',
-                'Content-Type': 'application/json'
-            }
+            HeaderRequest
         )
             .then(res => {
                 this.setState({
