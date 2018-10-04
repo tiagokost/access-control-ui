@@ -19,6 +19,7 @@ const styles = theme => ({
         flexGrow: 1
     },
     paper: {
+
         padding: theme.spacing.unit * 2,
         textAlign: 'center',
         color: theme.palette.text.secondary
@@ -35,9 +36,9 @@ const CustomTableCell = withStyles(theme => ({
 }))(TableCell);
 
 
-
 class ListApplication extends Component {
     constructor(props) {
+        
         super(props);
 
         this.state = {
@@ -113,7 +114,6 @@ class ListApplication extends Component {
                     </Grid>
                 </Paper>
             </div>
-
         )
     }
 }

@@ -12,7 +12,9 @@ import RegisterApplication from './forms/application/RegisterApplication';
 import _404 from './forms/_404';
 import ListApplication from './forms/application/ListApplication';
 import ListAccount from './forms/account/ListAccount';
+import ListRole from './forms/role/ListRole';
 import Activate from './forms/account/Activate';
+
 
 
 const styles = {
@@ -88,7 +90,7 @@ export default class App extends Component {
               <Route path="/application/all" component={ListApplication}/>
               <Route path="/account/all" component={ListAccount}/>
               <Route path="/account/activate" component={Activate}/>
-
+              <Route path="/role/all" component={ListRole}/>
               <Route component={_404}/>
 
             </Switch>

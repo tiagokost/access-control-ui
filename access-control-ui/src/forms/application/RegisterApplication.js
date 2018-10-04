@@ -97,7 +97,7 @@ class RegisterApplication extends Component {
                             fullWidth={true}
                             style={textFieldStyle}></TextField>
                         <TextField
-                            required={true}
+                            required={false}
                             value={this.state.repeatePassword}
                             onChange={this.onChange}
                             placeholder="Description"
